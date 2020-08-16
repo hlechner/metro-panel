@@ -44,7 +44,6 @@
 	background: none;
 }
 
-.dashtopanelMainPanel .show-apps:hover .overview-icon,
 #dashtopanelScrollview .app-well-app:hover .dtp-container,
 #dashtopanelScrollview .app-well-app:focus .dtp-container {
 	background-color: rgba(238, 238, 236, 0.1);
