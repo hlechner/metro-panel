@@ -548,7 +548,8 @@ var taskbarAppIcon = Utils.defineClass({
             }
 
             let highlightColor = this._getFocusHighlightColor();
-            inlineStyle += "background-color: " + cssHexTocssRgba(highlightColor, Me.settings.get_int('focus-highlight-opacity') * 0.01);
+            let multiplier = this.actor.hover ? 0.01 : 0.0098;
+            inlineStyle += "background-color: " + cssHexTocssRgba(highlightColor, Me.settings.get_int('focus-highlight-opacity') * multiplier);
         }
         
         if(this._dotsContainer.get_style() != inlineStyle && this._dotsContainer.mapped) {
@@ -1068,8 +1069,16 @@ var taskbarAppIcon = Utils.defineClass({
             } else {
                 let blackenedLength = (1 / 48) * areaSize; // need to scale with the SVG for the stacked highlight
                 let darkenedLength = (isFocused || (this.actor.hover && type == DOT_STYLE.METRO)) ? (3 / 48) * areaSize : (8 / 48) * areaSize;
-                let blackenedColor = bodyColor.shade(.3);
+                let blackenedColor = bodyColor.shade(.6);
                 let darkenedColor = bodyColor.shade(.7);
+
+                if (type == DOT_STYLE.METRO) {
+                    for (let arrayRGB of ['red','green','blue']) {
+                        blackenedColor[arrayRGB] = Math.round(Math.min(Math.max(bodyColor[arrayRGB] * (.6), 0), 255));
+                        darkenedColor[arrayRGB]  = Math.round(Math.min(Math.max(bodyColor[arrayRGB] * (.8), 0), 255));
+                    }
+                }
+
                 let solidDarkLength = areaSizeNew - darkenedLength;
                 let solidLength = solidDarkLength - blackenedLength;
 
