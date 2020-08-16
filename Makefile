@@ -1,6 +1,6 @@
 # Basic Makefile
 
-UUID = dash-to-panel@jderose9.github.com
+UUID = metro-panel@hlechner.github.com
 BASE_MODULES = extension.js stylesheet.css metadata.json COPYING README.md
 EXTRA_MODULES = appIcons.js convenience.js panel.js panelManager.js proximity.js intellihide.js progress.js panelPositions.js panelStyle.js overview.js taskbar.js transparency.js windowPreview.js prefs.js update.js utils.js Settings.ui
 EXTRA_IMAGES = highlight_stacked_bg.svg highlight_stacked_bg_2.svg highlight_stacked_bg_3.svg
@@ -12,7 +12,7 @@ ifeq ($(strip $(DESTDIR)),)
 else
 	INSTALLBASE = $(DESTDIR)/usr/share/gnome-shell/extensions
 endif
-INSTALLNAME = dash-to-panel@jderose9.github.com
+INSTALLNAME = metro-panel@hlechner.github.com
 
 # The command line passed variable VERSION is used to set the version string
 # in the metadata and in the generated zip-file. If no VERSION is passed, the
@@ -38,21 +38,21 @@ clean:
 
 extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
 
-./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.dash-to-panel.gschema.xml
+./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.metro-panel.gschema.xml
 	glib-compile-schemas ./schemas/
 
-potfile: ./po/dash-to-panel.pot
+potfile: ./po/metro-panel.pot
 
 mergepo: potfile
 	for l in $(MSGSRC); do \
-		msgmerge -U $$l ./po/dash-to-panel.pot; \
+		msgmerge -U $$l ./po/metro-panel.pot; \
 	done;
 
 ./po/dash-to-panel.pot: $(TOLOCALIZE) Settings.ui
 	mkdir -p po
-	xgettext -k_ -kN_ -o po/dash-to-panel.pot --package-name "Dash To Panel" $(TOLOCALIZE)
+	xgettext -k_ -kN_ -o po/metro-panel.pot --package-name "Metro Panel" $(TOLOCALIZE)
 	intltool-extract --type=gettext/glade Settings.ui
-	xgettext -k_ -kN_ --join-existing -o po/dash-to-panel.pot Settings.ui.h
+	xgettext -k_ -kN_ --join-existing -o po/metro-panel.pot Settings.ui.h
 
 ./po/%.mo: ./po/%.po
 	msgfmt -c $< -o $@
@@ -91,7 +91,7 @@ endif
 		lf=_build/locale/`basename $$l .mo`; \
 		mkdir -p $$lf; \
 		mkdir -p $$lf/LC_MESSAGES; \
-		cp $$l $$lf/LC_MESSAGES/dash-to-panel.mo; \
+		cp $$l $$lf/LC_MESSAGES/metro-panel.mo; \
 	done;
 ifneq ($(and $(COMMIT),$(VERSION)),)
 	sed -i 's/"version": [[:digit:]][[:digit:]]*/"version": $(VERSION),\n"commit": "$(COMMIT)"/'  _build/metadata.json;

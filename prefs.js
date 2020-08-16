@@ -44,7 +44,7 @@ const DEFAULT_MARGIN_SIZES = [ 32, 24, 16, 12, 8, 4, 0 ];
 const DEFAULT_PADDING_SIZES = [ 32, 24, 16, 12, 8, 4, 0, -1 ];
 const MAX_WINDOW_INDICATOR = 4;
 
-const SCHEMA_PATH = '/org/gnome/shell/extensions/dash-to-panel/';
+const SCHEMA_PATH = '/org/gnome/shell/extensions/metro-panel/';
 const GSET = 'gnome-shell-extension-tool';
 
 /**
@@ -159,7 +159,7 @@ const Settings = new Lang.Class({
     Name: 'DashToPanel.Settings',
 
     _init: function() {
-        this._settings = Convenience.getSettings('org.gnome.shell.extensions.dash-to-panel');
+        this._settings = Convenience.getSettings('org.gnome.shell.extensions.metro-panel');
 
         this._rtl = (Gtk.Widget.get_default_direction() == Gtk.TextDirection.RTL);
 

@@ -88,7 +88,7 @@ function _enable() {
 
     if (panelManager) return; //already initialized
 
-    Me.settings = Convenience.getSettings('org.gnome.shell.extensions.dash-to-panel');
+    Me.settings = Convenience.getSettings('org.gnome.shell.extensions.metro-panel');
     Me.desktopSettings = Convenience.getSettings('org.gnome.desktop.interface');
 
     Me.imports.update.init();
