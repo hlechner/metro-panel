@@ -88,17 +88,17 @@
       <description>Panel element positions (JSON).</description>
     </key>
     <key type="i" name="panel-size">
-      <default>48</default>
+      <default>40</default>
       <summary>Panel size</summary>
       <description>Set the size of the panel.</description>
     </key>
     <key type="b" name="desktop-line-use-custom-color">
-      <default>false</default>
+      <default>true</default>
       <summary>Override Show Desktop line color</summary>
       <description>Replace current Show Desktop button line color</description>
     </key>
     <key type="s" name="desktop-line-custom-color">
-      <default>"rgba(200,200,200,0.2)"</default>
+      <default>"rgba(200,200,200,0.5)"</default>
       <summary>Custom Show Desktop line color</summary>
       <description>Custom Show Desktop button line color</description>
     </key>
@@ -123,27 +123,27 @@
       <description>Whether to use the app icon's dominant color for .app-well-running-dot</description>
     </key>
     <key type="b" name="dot-color-override">
-      <default>false</default>
+      <default>true</default>
       <summary>Running indicator color override</summary>
       <description>Whether to override the theme background color for .app-well-running-dot</description>
     </key>
     <key type="s" name="dot-color-1">
-      <default>"#5294e2"</default>
+      <default>"#6db8f2"</default>
       <summary>Color of running indicator (1 window)</summary>
       <description>Customize the color of the running indicator when one window is running for that application</description>
     </key>
     <key type="s" name="dot-color-2">
-      <default>"#5294e2"</default>
+      <default>"#6db8f2"</default>
       <summary>Color of running indicator (2 windows)</summary>
       <description>Customize the color of the running indicator when two windows are running for that application</description>
     </key>
     <key type="s" name="dot-color-3">
-      <default>"#5294e2"</default>
+      <default>"#6db8f2"</default>
       <summary>Color of running indicator (3 windows)</summary>
       <description>Customize the color of the running indicator when three windows are running for that application</description>
     </key>
     <key type="s" name="dot-color-4">
-      <default>"#5294e2"</default>
+      <default>"#6db8f2"</default>
       <summary>Color of running indicator (4+ windows)</summary>
       <description>Customize the color of the running indicator when four or more windows are running for that application</description>
     </key>
@@ -173,7 +173,7 @@
       <description>Customize the color of the unfocused running indicator when four or more windows are running for that application</description>
     </key>
     <key type="i" name="dot-size">
-      <default>3</default>
+      <default>2</default>
       <summary>Running indicator height</summary>
       <description>Height of the running indicator line/diameter of window indicator dots</description>
     </key>
@@ -188,12 +188,12 @@
       <description>Base the active window highlight color on that application's icon</description>
     </key>
     <key type="s" name="focus-highlight-color">
-      <default>"#EEEEEE"</default>
+      <default>"#FFFFFF"</default>
       <summary>Color of highlight of focused application</summary>
       <description>Customize the color of the highlight of the focused application</description>
     </key>
     <key type="i" name="focus-highlight-opacity">
-      <default>25</default>
+      <default>15</default>
       <summary>Opacity of highlight of focused application</summary>
       <description>Customize the opacity of the highlight of the focused application</description>
     </key>
@@ -223,12 +223,12 @@
       <description>Specifies if the user can modify the taskbar</description>
     </key>
     <key type="b" name="trans-use-custom-bg">
-      <default>false</default>
+      <default>true</default>
       <summary>Override theme background color</summary>
       <description>Replace current theme background color for the panel</description>
     </key>
     <key type="s" name="trans-bg-color">
-      <default>"#000"</default>
+      <default>"#101010"</default>
       <summary>Custom background color</summary>
       <description>Custom background color for the panel</description>
     </key>
@@ -363,7 +363,7 @@
       <description>Customize the Show Applications icon</description>
     </key>
     <key type="i" name="show-apps-icon-side-padding">
-      <default>8</default>
+      <default>4</default>
       <summary>Show Applications icon side padding</summary>
       <description>Customize the Show Applications icon side padding</description>
     </key>
@@ -403,7 +403,7 @@
       <description>Show activities button on the left hand side of the taskbar</description>
     </key>
     <key type="i" name="showdesktop-button-width">
-      <default>8</default>
+      <default>4</default>
       <summary>Width of show Desktop button</summary>
       <description>Customize the width of the show Desktop button</description>
     </key>
@@ -478,12 +478,12 @@
       <description>This defines the window preview titles font color.</description>
     </key>
     <key type="i" name="window-preview-title-font-size">
-      <default>14</default>
+      <default>12</default>
       <summary>Window previews title font size</summary>
       <description>This defines the window preview titles font size.</description>
     </key>
     <key type="b" name="window-preview-use-custom-icon-size">
-      <default>false</default>
+      <default>true</default>
       <summary>Window previews use custom icon size</summary>
       <description>Window previews use custom application icon size.</description>
     </key>
@@ -503,7 +503,7 @@
       <description>This defines the font weight of window preview titles. Supported values: inherit (from theme), normal, lighter, bold and bolder.</description>
     </key>
     <key type="i" name="window-preview-size">
-      <default>240</default>
+      <default>111</default>
       <summary>Window previews size</summary>
       <description>Preferred window previews size</description>
     </key>
@@ -538,7 +538,7 @@
       <description>The window previews immediately hide when an application icon is clicked.</description>
     </key>
     <key type="b" name="isolate-workspaces">
-      <default>false</default>
+      <default>true</default>
       <summary>Provide workspace isolation</summary>
       <description>Dash shows only windows from the current workspace</description>
     </key>
@@ -715,17 +715,17 @@
         <description>Set the size of the leftBox font. (0 for default)</description>
     </key>
     <key type="i" name="appicon-margin">
-        <default>8</default>
+        <default>1</default>
         <summary>App icon margin</summary>
         <description>Set the margin for application icons in the embedded dash.</description>
     </key>
     <key type="i" name="appicon-padding">
-        <default>4</default>
+        <default>8</default>
         <summary>App icon padding</summary>
         <description>Set the padding for application icons in the embedded dash.</description>
     </key>
     <key type="i" name="tray-padding">
-        <default>-1</default>
+        <default>3</default>
         <summary>Tray item padding</summary>
         <description>Set the size of the tray padding. (-1 for default)</description>
     </key>
@@ -735,7 +735,7 @@
         <description>Set the size of the leftBox padding. (-1 for default)</description>
     </key>
     <key type="i" name="status-icon-padding">
-        <default>-1</default>
+        <default>1</default>
         <summary>Status icon padding</summary>
         <description>Set the size of the aggregate (status) menu icon padding. (-1 for default)</description>
     </key>
