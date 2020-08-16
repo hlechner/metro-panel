@@ -110,12 +110,13 @@ var taskbarAppIcon = Utils.defineClass({
     Extends: AppDisplay.AppIcon,
     ParentConstrParams: [[0, 'app'], [2]],
 
-    _init: function(appInfo, panel, iconParams, previewMenu) {
+    _init: function(appInfo, panel, iconParams, previewMenu, buttonPosition) {
         this.dtpPanel = panel;
         this._nWindows = 0;
         this.window = appInfo.window;
         this.isLauncher = appInfo.isLauncher;
         this._previewMenu = previewMenu;
+        this.buttonPosition = buttonPosition;
 
         this._timeoutsHandler = new Utils.TimeoutsHandler();
 
@@ -576,7 +577,11 @@ var taskbarAppIcon = Utils.defineClass({
         let padding = getIconPadding();
         let margin = Me.settings.get_int('appicon-margin');
         
-        this.actor.set_style('padding:' + (this.dtpPanel.checkIfVertical() ? margin + 'px 0' : '0 ' + margin + 'px;'));
+        if (this.buttonPosition == 0) {
+            this.actor.set_style('padding: 0;');
+        } else {
+            this.actor.set_style('padding:' + (this.dtpPanel.checkIfVertical() ? margin + 'px 0 0 0' : '0 0 0 ' + margin + 'px;'));
+        }
         this._iconContainer.set_style('padding: ' + padding + 'px;');
     },
 

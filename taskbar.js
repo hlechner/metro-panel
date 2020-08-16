@@ -536,7 +536,7 @@ var taskbar = Utils.defineClass({
         }));
     },
 
-    _createAppItem: function(app, window, isLauncher) {
+    _createAppItem: function(app, window, isLauncher, position) {
         let appIcon = new AppIcons.taskbarAppIcon(
             {
                 app: app, 
@@ -549,7 +549,8 @@ var taskbar = Utils.defineClass({
                 showLabel: false,
                 isDraggable: !Me.settings.get_boolean('taskbar-locked'),
             },
-            this.previewMenu
+            this.previewMenu,
+            position
         );
 
         if (appIcon._draggable) {
@@ -814,7 +815,7 @@ var taskbar = Utils.defineClass({
                     this._box.insert_child_at_index(currentAppIcons[matchingAppIconIndex], currentPosition);
                 } else if (matchingAppIconIndex < 0) {
                     //the icon doesn't exist yet, create a new one
-                    let newAppIcon = this._createAppItem(neededAppIcons[j].app, neededAppIcons[j].window, neededAppIcons[j].isLauncher);
+                    let newAppIcon = this._createAppItem(neededAppIcons[j].app, neededAppIcons[j].window, neededAppIcons[j].isLauncher, currentPosition);
                     
                     this._box.insert_child_at_index(newAppIcon, currentPosition);
                     currentAppIcons.splice(currentPosition, 0, newAppIcon);
