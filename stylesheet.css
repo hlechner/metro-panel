@@ -21,9 +21,17 @@
  * Some code was also adapted from the upstream Gnome Shell source code.
  */
 
+.panel-button StLabel {
+    font-size: 10pt;
+}
+
 #dashtopanelTaskbar .dash-item-container > StWidget {
 	margin: 0;
 	padding: 0; 
+}
+
+#panel .show-apps {
+    margin-right: 3px;
 }
 
 #dashtopanelScrollview .app-well-app .overview-icon,
@@ -44,6 +52,8 @@
 	background: none;
 }
 
+#panel .panel-button:hover,
+.dashtopanelMainPanel .show-apps:hover,
 #dashtopanelScrollview .app-well-app:hover .dtp-container,
 #dashtopanelScrollview .app-well-app:focus .dtp-container {
 	background-color: rgba(255, 255, 255, 0.1);
@@ -111,6 +121,10 @@
 
 #panel #panelLeft, #panel #panelCenter {
 	spacing: 0px; 
+}
+
+.showdesktop-button {
+    margin-left: 8px;
 }
 
 .showdesktop-button-dark-hovered {
