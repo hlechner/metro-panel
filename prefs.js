@@ -384,13 +384,17 @@ const Settings = new Lang.Class({
         let handleIconChange = function(newIconPath) {
             if (newIconPath && GLib.file_test(newIconPath, GLib.FileTest.EXISTS)) {
                 let file = Gio.File.new_for_path(newIconPath)
-                let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(file.read(null), 32, 32, true, null);
+                let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(file.read(null), 24, 24, true, null);
 
                 fileImage.set_from_pixbuf(pixbuf);
                 fileChooser.set_filename(newIconPath);
             } else {
                 newIconPath = '';
-                fileImage.set_from_icon_name('view-app-grid-symbolic', 32);
+
+                let file = Gio.File.new_for_path(Me.path + "/img/showapps-inactive.png")
+                let pixbuf = GdkPixbuf.Pixbuf.new_from_stream_at_scale(file.read(null), 24, 24, true, null);
+
+                fileImage.set_from_pixbuf(pixbuf);
                 fileChooser.unselect_all();
                 fileChooser.set_current_folder(GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES));
             }

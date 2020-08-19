@@ -52,6 +52,10 @@
 	background: none;
 }
 
+.dashtopanelMainPanel .show-apps:checked {
+	background-color: rgba(255, 255, 255, 0.053);
+}
+
 #panel .panel-button:hover,
 .dashtopanelMainPanel .show-apps:hover,
 #dashtopanelScrollview .app-well-app:hover .dtp-container,

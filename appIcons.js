@@ -1661,16 +1661,17 @@ var ShowAppsIconWrapper = Utils.defineClass({
         Taskbar.extendDashItemContainer(this.realShowAppsIcon);
 
         let customIconPath = Me.settings.get_string('show-apps-icon-file');
+        let showIconActive = Me.path + "/img/showapps-active.png";
+        let showIconInactive = Me.path + "/img/showapps-inactive.png";
 
         this.realShowAppsIcon.icon.createIcon = function(size) {
-            this._iconActor = new St.Icon({ icon_name: 'view' + (Config.PACKAGE_VERSION < '3.20' ? '' : '-app') + '-grid-symbolic',
-                                            icon_size: size,
+            this._iconActor = new St.Icon({ icon_size: size,
                                             style_class: 'show-apps-icon',
                                             track_hover: true });
 
-            if (customIconPath) {
-                this._iconActor.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(customIconPath) });
-            }
+            let defaultIcon = customIconPath ? customIconPath : showIconInactive;
+
+            this._iconActor.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(defaultIcon) });
 
             return this._iconActor;
         };
@@ -1680,12 +1681,26 @@ var ShowAppsIconWrapper = Utils.defineClass({
             this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
         });
 
+        this._changedShowAppsIconId = this.actor.connect('notify::hover', () => {
+            if (!Me.settings.get_string('show-apps-icon-file')) {
+                customIconPath = (this.actor.checked || this.actor.hover) ? showIconActive : showIconInactive;
+                this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
+            }
+        });
+
+        this._changedShowAppsIconId = this.actor.connect('notify::checked', () => {
+            if (!Me.settings.get_string('show-apps-icon-file')) {
+                customIconPath = (this.actor.checked || this.actor.hover) ? showIconActive : showIconInactive;
+                this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
+            }
+        });
+
         this._changedAppIconPaddingId = Me.settings.connect('changed::appicon-padding', () => this.setShowAppsPadding());
         this._changedAppIconSidePaddingId = Me.settings.connect('changed::show-apps-icon-side-padding', () => this.setShowAppsPadding());
         
         this.setShowAppsPadding();
     },
-    
+
     _onButtonPress: function(_actor, event) {
         let button = event.get_button();
         if (button == 1) {
