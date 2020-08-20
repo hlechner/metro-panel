@@ -519,7 +519,7 @@ var taskbarAppIcon = Utils.defineClass({
         let inlineStyle = 'margin: 0;';
 
         if(Me.settings.get_boolean('focus-highlight') && 
-           this._checkIfFocusedApp() && !this.isLauncher &&  
+           (this._checkIfFocusedApp() || (this._nWindows > 1 && this.actor.hover)) && !this.isLauncher &&
            (!this.window || isFocused) && !this._isThemeProvidingIndicator() && this._checkIfMonitorHasFocus()) {
             let focusedDotStyle = Me.settings.get_string('dot-style-focused');
             let isWide = this._isWideDotStyle(focusedDotStyle);
@@ -546,10 +546,11 @@ var taskbarAppIcon = Utils.defineClass({
                                    "background-size: " + backgroundSize;
                 }
             }
-
-            let highlightColor = this._getFocusHighlightColor();
-            let multiplier = this.actor.hover ? 0.01 : 0.0098;
-            inlineStyle += "background-color: " + cssHexTocssRgba(highlightColor, Me.settings.get_int('focus-highlight-opacity') * multiplier);
+            if (this._checkIfFocusedApp()){
+                let highlightColor = this._getFocusHighlightColor();
+                let multiplier = this.actor.hover ? 0.01 : 0.0098;
+                inlineStyle += "background-color: " + cssHexTocssRgba(highlightColor, Me.settings.get_int('focus-highlight-opacity') * multiplier);
+            }
         }
         
         if(this._dotsContainer.get_style() != inlineStyle && this._dotsContainer.mapped) {
