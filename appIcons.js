@@ -1056,7 +1056,7 @@ var taskbarAppIcon = Utils.defineClass({
 
         if (type == DOT_STYLE.SOLID || type == DOT_STYLE.METRO) {
             let hoverSpacing = 4;
-            let fullSize = (isFocused || this.actor.hover || type != DOT_STYLE.METRO) ? true : false;
+            let fullSize = (isFocused || this._checkIfFocusedApp() || this.actor.hover || type != DOT_STYLE.METRO) ? true : false;
             startX = fullSize ? startX : startX + hoverSpacing;
             areaSizeNew = fullSize ? areaSize : areaSize - (hoverSpacing * 2);
 
@@ -1068,7 +1068,7 @@ var taskbarAppIcon = Utils.defineClass({
                 cr.fill();
             } else {
                 let blackenedLength = (1 / 48) * areaSize; // need to scale with the SVG for the stacked highlight
-                let darkenedLength = (isFocused || (this.actor.hover && type == DOT_STYLE.METRO)) ? (3 / 48) * areaSize : (8 / 48) * areaSize;
+                let darkenedLength = fullSize ? (3 / 48) * areaSize : (8 / 48) * areaSize;
                 let blackenedColor = bodyColor.shade(.6);
                 let darkenedColor = bodyColor.shade(.7);
 
