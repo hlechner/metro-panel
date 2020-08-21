@@ -44,10 +44,11 @@ const T3 = 'peekTimeout';
 const T4 = 'ensureVisibleTimeout';
 
 const MAX_TRANSLATION = 40;
-const HEADER_HEIGHT = 38;
+const HEADER_HEIGHT = 32;
 const MAX_CLOSE_BUTTON_SIZE = 30;
 const MIN_DIMENSION = 100;
-const FOCUSED_COLOR_OFFSET = 24;
+const DEFAULT_COLOR_OFFSET = 24;
+const FOCUSED_COLOR_OFFSET = 45;
 const HEADER_COLOR_OFFSET = -12;
 const FADE_SIZE = 36;
 const PEEK_INDEX_PROP = '_dtpPeekInitialIndex';
@@ -194,7 +195,7 @@ var PreviewMenu = Utils.defineClass({
                 this.set_height(this.clipHeight);
                 this.menu.show();
                 
-                setStyle(this.menu, 'background: ' + Utils.getrgbaColor(this.panel.dynamicTransparency.backgroundColorRgb, alphaBg));
+                setStyle(this.menu, 'background: ' + Utils.getrgbaColor(this.panel.dynamicTransparency.backgroundColorRgb, alphaBg, DEFAULT_COLOR_OFFSET));
             }
 
             this._mergeWindows(appIcon);
@@ -728,7 +729,7 @@ var Preview = Utils.defineClass({
         this._previewBin = new St.Widget({ 
             layout_manager: new Clutter.BinLayout(),
             x_expand: true, y_expand: true, 
-            style: 'padding: ' + this._padding / scaleFactor + 'px;'
+            style: 'padding: 0 '+ this._padding +'px '+ this._padding +'px '+ this._padding +'px;'
         });
 
         this._previewBin.set_size(previewBinWidth, previewBinHeight);
@@ -743,7 +744,6 @@ var Preview = Utils.defineClass({
                 y_align: Clutter.ActorAlign[isTopHeader ? 'START' : 'END']
             });
             
-            setStyle(headerBox, this._getBackgroundColor(HEADER_COLOR_OFFSET, 1));
             this._workspaceIndicator = new St.Label({ y_align: Clutter.ActorAlign.CENTER });
             this._windowTitle = new St.Label({ y_align: Clutter.ActorAlign.CENTER, x_expand: true });
 
@@ -789,9 +789,7 @@ var Preview = Utils.defineClass({
 
         setStyle(
             this._closeButtonBin,
-            'padding: ' + (headerHeight ? Math.round((headerHeight - closeButtonHeight) * .5 / scaleFactor) : 4) + 'px;' +
-            this._getBackgroundColor(HEADER_COLOR_OFFSET, headerHeight ? 1 : .6) +
-            closeButtonBorderRadius
+            'padding: ' + (headerHeight ? Math.round((headerHeight - closeButtonHeight) * .5 / scaleFactor) : 4) + 'px;'
         );
     },
 
@@ -839,8 +837,8 @@ var Preview = Utils.defineClass({
     getSize: function() {
         let [binWidth, binHeight] = this._getBinSize();
 
-        binWidth = Math.max(binWidth, this.cloneWidth + this._padding * 2);
-        binHeight = Math.max(binHeight, this.cloneHeight + this._padding * 2) + headerHeight;
+        binWidth = Math.max(binWidth, Math.ceil(this.cloneWidth) + this._padding * 2);
+        binHeight = Math.max(binHeight, Math.ceil(this.cloneHeight) + this._padding) + headerHeight;
 
         return [binWidth, binHeight];
     },
@@ -1060,7 +1058,7 @@ var Preview = Utils.defineClass({
 
         return [
             aspectRatio.x.fixed ? fixedWidth + this._padding * 2 : -1,
-            aspectRatio.y.fixed ? fixedHeight + this._padding * 2 : -1
+            aspectRatio.y.fixed ? fixedHeight + this._padding : -1
         ];
     },
 

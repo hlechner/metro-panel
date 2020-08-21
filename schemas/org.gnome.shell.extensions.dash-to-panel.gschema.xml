@@ -208,7 +208,7 @@
       <description>Whether to keep the stock gnome-shell top panel</description>
     </key>
     <key type="b" name="stockgs-panelbtn-click-only">
-      <default>false</default>
+      <default>true</default>
       <summary>Panel menu buttons require click</summary>
       <description>Whether to activate the panel menu buttons on hover or on click</description>
     </key>
@@ -513,7 +513,7 @@
       <description>This defines if the window previews use a fixed aspect ratio X.</description>
     </key>
     <key type="b" name="window-preview-fixed-y">
-      <default>true</default>
+      <default>false</default>
       <summary>Fixed aspect ratio Y</summary>
       <description>This defines if the window previews use a fixed aspect ratio Y.</description>
     </key>
@@ -695,7 +695,7 @@
       <description>Middle click on the window preview to close that window</description>
     </key>
     <key type="b" name="preview-use-custom-opacity">
-      <default>true</default>
+      <default>false</default>
       <summary>Window previews use custom opacity</summary>
       <description>Window previews background use a different opacity from the panel</description>
     </key>
