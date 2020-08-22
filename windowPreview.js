@@ -16,6 +16,7 @@
  */
 
 const Clutter = imports.gi.Clutter;
+const Gio = imports.gi.Gio;
 const Config = imports.misc.config;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
@@ -45,7 +46,7 @@ const T4 = 'ensureVisibleTimeout';
 
 const MAX_TRANSLATION = 40;
 const HEADER_HEIGHT = 32;
-const MAX_CLOSE_BUTTON_SIZE = 30;
+const MAX_CLOSE_BUTTON_SIZE = 32;
 const MIN_DIMENSION = 100;
 const DEFAULT_COLOR_OFFSET = 24;
 const FOCUSED_COLOR_OFFSET = 45;
@@ -709,10 +710,13 @@ var Preview = Utils.defineClass({
 
         let box = new St.Widget({ layout_manager: new Clutter.BoxLayout({ vertical: true }), y_expand: true });
         let [previewBinWidth, previewBinHeight] = this._getBinSize();
-        let closeButton = new St.Button({ style_class: 'window-close', accessible_name: 'Close window' });
+        let closeButton = new St.Button({ style_class: 'preview-window-close', accessible_name: 'Close window' });
 
         if (Config.PACKAGE_VERSION >= '3.31.9') {
-            closeButton.add_actor(new St.Icon({ icon_name: 'window-close-symbolic' }));
+            let closeIcon = new St.Icon();
+            closeButton.add_actor(closeIcon);
+
+            closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path("/home/hlechner/.local/share/gnome-shell/extensions/metro-panel@hlechner.github.com/img/close.png") });
         }
 
         this._closeButtonBin = new St.Widget({ 
@@ -786,11 +790,6 @@ var Preview = Utils.defineClass({
                 closeButtonBorderRadius += (isLeftButtons ? '0 4px 0 0;' : '4px 0 0 0;');
             }
         }
-
-        setStyle(
-            this._closeButtonBin,
-            'padding: ' + (headerHeight ? Math.round((headerHeight - closeButtonHeight) * .5 / scaleFactor) : 4) + 'px;'
-        );
     },
 
     assignWindow: function(window, animateSize) {

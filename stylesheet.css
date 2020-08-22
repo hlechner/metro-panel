@@ -25,6 +25,14 @@
     font-size: 10pt;
 }
 
+.preview-window-close {
+  background-color: #3d3d3d;
+}
+
+.preview-window-close:hover {
+  background-color: #c61a28;
+}
+
 #dashtopanelTaskbar .dash-item-container > StWidget {
 	margin: 0;
 	padding: 0; 
