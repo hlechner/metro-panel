@@ -51,6 +51,7 @@ var optionDialogFunctions = {};
 
 optionDialogFunctions[SHOW_APPS_BTN] = '_showShowAppsButtonOptions';
 optionDialogFunctions[DESKTOP_BTN] = '_showDesktopButtonOptions';
+optionDialogFunctions[DATE_MENU] = '_clockOptions';
 
 function getSettingsPositions(settings, setting) {
     var positions = null;

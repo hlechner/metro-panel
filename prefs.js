@@ -293,7 +293,7 @@ const Settings = new Lang.Class({
         labels[Pos.SHOW_APPS_BTN] = _('Show Applications button');
         labels[Pos.ACTIVITIES_BTN] = _('Activities button');
         labels[Pos.TASKBAR] = _('Taskbar');
-        labels[Pos.DATE_MENU] = _('Date menu');
+        labels[Pos.DATE_MENU] = _('Clock');
         labels[Pos.SYSTEM_MENU] = _('System menu');
         labels[Pos.LEFT_BOX] = _('Left box');
         labels[Pos.CENTER_BOX] = _('Center box');
@@ -467,6 +467,35 @@ const Settings = new Lang.Class({
 
                 this._settings.set_value('show-showdesktop-time', this._settings.get_default_value('show-showdesktop-time'));
                 this._builder.get_object('show_showdesktop_time_spinbutton').set_value(this._settings.get_int('show-showdesktop-time'));
+            } else {
+                // remove the settings box so it doesn't get destroyed;
+                dialog.get_content_area().remove(box);
+                dialog.destroy();
+            }
+            return;
+        }));
+
+        dialog.show_all();
+    },
+
+    _clockOptions: function() {
+        let dialog = new Gtk.Dialog({ title: _('Clock options'),
+                                        transient_for: this.widget.get_toplevel(),
+                                        use_header_bar: true,
+                                        modal: true });
+
+        // GTK+ leaves positive values for application-defined response ids.
+        // Use +1 for the reset action
+        dialog.add_button(_('Reset to defaults'), 1);
+
+        let box = this._builder.get_object('box_clock_format_options');
+        dialog.get_content_area().add(box);
+
+        dialog.connect('response', Lang.bind(this, function(dialog, id) {
+            if (id == 1) {
+                // restore default settings
+                this._settings.set_value('clock-format', this._settings.get_default_value('clock-format'));
+                this._builder.get_object('clock_format_entry').set_value(this._settings.get_string('clock-format'));
             } else {
                 // remove the settings box so it doesn't get destroyed;
                 dialog.get_content_area().remove(box);
@@ -1916,6 +1945,12 @@ const Settings = new Lang.Class({
                             this._builder.get_object('stockgs_hotcorner_switch'),
                             'active',
                             Gio.SettingsBindFlags.DEFAULT);
+
+
+        this._settings.bind('clock-format',
+                             this._builder.get_object('clock_format_entry'),
+                             'text',
+                             Gio.SettingsBindFlags.DEFAULT);
 
         // About Panel
 

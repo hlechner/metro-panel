@@ -1230,5 +1230,10 @@
       <summary>Show badge count on app icon</summary>
       <description>Whether to show badge count overlay on app icon, for supported applications.</description>
     </key>
+    <key type="s" name="clock-format">
+      <default>"%;l:%M %p%n%;m/%;e/%Y"</default>
+      <summary>New clock format</summary>
+      <description>It's define the new clock format on panel.</description>
+    </key>
   </schema>
 </schemalist>

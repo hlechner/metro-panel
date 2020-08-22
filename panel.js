@@ -56,6 +56,7 @@ const ViewSelector = imports.ui.viewSelector;
 const DateMenu = imports.ui.dateMenu;
 const Volume = imports.ui.status.volume;
 const Progress = Me.imports.progress;
+const clockFormatter = Me.imports.clockFormat;
 
 const Intellihide = Me.imports.intellihide;
 const Transparency = Me.imports.transparency;
@@ -400,16 +401,15 @@ var dtpPanel = Utils.defineClass({
             ]);
 
             this._setSearchEntryOffset(this.geom.w);
-
-            if (this.statusArea.dateMenu) {
-                this._formatVerticalClock();
+        }
+        if (this.statusArea.dateMenu) {
+            this._formatClock();
                 
-                this._signalsHandler.add([
-                    this.statusArea.dateMenu._clock,
-                    'notify::clock',
-                    () => this._formatVerticalClock()
-                ]);
-            }
+        this._signalsHandler.add([
+            this.statusArea.dateMenu._clock,
+                'notify::clock',
+                () => this._formatClock()
+            ]);
         }
 
         // Since we are usually visible but not usually changing, make sure
@@ -679,8 +679,15 @@ var dtpPanel = Utils.defineClass({
                     this._clockFormat = null;
                     
                     if (isVertical) {
-                        this._formatVerticalClock();
+                        this._formatClock();
                     }
+                }
+            ],
+            [
+                Me.settings,
+                'changed::clock-format',
+                () => {
+                    this._formatClock();
                 }
             ],
             [
@@ -1134,7 +1141,7 @@ var dtpPanel = Utils.defineClass({
     _refreshVerticalAlloc: function() {
         this._setVertical(this._centerBox, true);
         this._setVertical(this._rightBox, true);
-        this._formatVerticalClock();
+        this._formatClock();
     },
 
     _setVertical: function(actor, isVertical) {
@@ -1200,18 +1207,26 @@ var dtpPanel = Utils.defineClass({
         }
     },
 
-    _formatVerticalClock: function() {
+    _formatClock: function() {
         // https://github.com/GNOME/gnome-desktop/blob/master/libgnome-desktop/gnome-wall-clock.c#L310
         if (this.statusArea.dateMenu) {
             let datetime = this.statusArea.dateMenu._clock.clock;
             let datetimeParts = datetime.split(' ');
             let time = datetimeParts[1];
             let clockText = this.statusArea.dateMenu._clockDisplay.clutter_text;
+
+            this.statusArea.dateMenu._clockDisplay.set_style("text-align: center;");
+
             let setClockText = text => {
                 let stacks = text instanceof Array;
                 let separator = '\n<span size="xx-small">‧‧</span>\n';
+
+                var newFormat = Me.settings.get_string('clock-format');
+                var timeNow = GLib.DateTime.new_now_local();
+
+                var newClockText = clockFormatter.format(newFormat, timeNow);
         
-                clockText.set_text((stacks ? text.join(separator) : text).trim());
+                clockText.set_text(newClockText);
                 clockText.set_use_markup(stacks);
                 clockText.get_allocation_box();
         
