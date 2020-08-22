@@ -650,14 +650,6 @@ var dtpPanel = Utils.defineClass({
             ],
             [
                 Me.settings,
-                [
-                    'changed::appicon-margin',
-                    'changed::appicon-padding'
-                ],
-                () => this.taskbar.resetAppIcons()
-            ],
-            [
-                Me.settings,
                 'changed::show-appmenu',
                 () => this._setAppmenuVisible(Me.settings.get_boolean('show-appmenu'))
             ],
@@ -665,10 +657,8 @@ var dtpPanel = Utils.defineClass({
                 Me.settings,
                 [
                     'changed::showdesktop-button-width',
-                    'changed::trans-use-custom-bg',
                     'changed::desktop-line-use-custom-color',
-                    'changed::desktop-line-custom-color',
-                    'changed::trans-bg-color'
+                    'changed::desktop-line-custom-color'
                 ],
                 () => this._setShowDesktopButtonStyle()
             ],

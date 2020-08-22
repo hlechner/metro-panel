@@ -27,6 +27,8 @@ const Panel = Me.imports.panel;
 const Proximity = Me.imports.proximity;
 const Utils = Me.imports.utils;
 
+const DARK_BG_COLOR = "#101010";
+
 var DynamicTransparency = Utils.defineClass({
     Name: 'DashToPanel.DynamicTransparency',
 
@@ -86,32 +88,12 @@ var DynamicTransparency = Utils.defineClass({
             [
                 Me.settings,
                 [
-                    'changed::trans-use-custom-bg',
-                    'changed::trans-bg-color'
-                ],
-                () => this._updateColorAndSet()
-            ],
-            [
-                Me.settings,
-                [
                     'changed::trans-use-custom-opacity',
                     'changed::trans-panel-opacity',
-                    'changed::trans-bg-color',
                     'changed::trans-dynamic-anim-target',
                     'changed::trans-use-dynamic-opacity'
                 ],
                 () => this._updateAlphaAndSet()
-            ],
-            [
-                Me.settings,
-                [
-                    'changed::trans-use-custom-gradient',
-                    'changed::trans-gradient-top-color',
-                    'changed::trans-gradient-bottom-color',
-                    'changed::trans-gradient-top-opacity',
-                    'changed::trans-gradient-bottom-opacity'
-                ],
-                () => this._updateGradientAndSet()
             ],
             [
                 Me.settings,
@@ -165,19 +147,9 @@ var DynamicTransparency = Utils.defineClass({
         this._setGradient();
     },
 
-    _updateColorAndSet: function() {
-        this._updateColor();
-        this._setBackground();
-    },
-
     _updateAlphaAndSet: function() {
         this._updateAlpha();
         this._setBackground();
-    },
-
-    _updateGradientAndSet: function() {
-        this._updateGradient();
-        this._setGradient();
     },
 
     _updateComplementaryStyles: function() {
@@ -187,9 +159,7 @@ var DynamicTransparency = Utils.defineClass({
     },
 
     _updateColor: function(themeBackground) {
-        this.backgroundColorRgb = Me.settings.get_boolean('trans-use-custom-bg') ?
-                                  Me.settings.get_string('trans-bg-color') :
-                                  (themeBackground || this._getThemeBackground());
+        this.backgroundColorRgb = DARK_BG_COLOR;
     },
 
     _updateAlpha: function(themeBackground) {
@@ -205,13 +175,6 @@ var DynamicTransparency = Utils.defineClass({
     _updateGradient: function() {
         this._gradientStyle = '';
 
-        if (Me.settings.get_boolean('trans-use-custom-gradient')) {
-            this._gradientStyle += 'background-gradient-direction: ' + (this._dtpPanel.checkIfVertical() ? 'horizontal;' : 'vertical;') +
-                                   'background-gradient-start: ' + Utils.getrgbaColor(Me.settings.get_string('trans-gradient-top-color'), 
-                                                                                      Me.settings.get_double('trans-gradient-top-opacity')) + 
-                                   'background-gradient-end: ' + Utils.getrgbaColor(Me.settings.get_string('trans-gradient-bottom-color'), 
-                                                                                    Me.settings.get_double('trans-gradient-bottom-opacity'));
-        }
     },
 
     _setBackground: function() {

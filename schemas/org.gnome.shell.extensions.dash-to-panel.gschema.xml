@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="gnome-shell-extensions">
-  <enum id='org.gnome.shell.extensions.metro-panel.dotStyle'>
-    <value value='0' nick='DOTS'/>
-    <value value='1' nick='SQUARES'/>
-    <value value='2' nick='DASHES'/>
-    <value value='3' nick='SEGMENTED'/>
-    <value value='4' nick='SOLID'/>
-    <value value='5' nick='CILIORA'/>
-    <value value='6' nick='METRO'/>
-  </enum>
   <enum id='org.gnome.shell.extensions.metro-panel.clickAction'>
     <value value='0' nick='RAISE'/>
     <value value='1' nick='MINIMIZE'/>
@@ -106,16 +97,6 @@
       <default>'BOTTOM'</default>
       <summary>Dot position</summary>
       <description>Running indicators are shown on the Bottom or Top of the screen.</description>
-    </key>
-    <key name="dot-style-focused" enum="org.gnome.shell.extensions.metro-panel.dotStyle">
-      <default>'METRO'</default>
-      <summary>Style of the running indicator (focused)</summary>
-      <description>Style of the running indicator for the icon for the currently focused application</description>
-    </key>
-    <key name="dot-style-unfocused" enum="org.gnome.shell.extensions.metro-panel.dotStyle">
-      <default>'METRO'</default>
-      <summary>Style of the running indicator (unfocused)</summary>
-      <description>Style of the running indicator for the icon for applications which are not currently focused</description>
     </key>
     <key type="b" name="dot-color-dominant">
       <default>false</default>
@@ -222,16 +203,6 @@
       <summary>Lock the taskbar</summary>
       <description>Specifies if the user can modify the taskbar</description>
     </key>
-    <key type="b" name="trans-use-custom-bg">
-      <default>true</default>
-      <summary>Override theme background color</summary>
-      <description>Replace current theme background color for the panel</description>
-    </key>
-    <key type="s" name="trans-bg-color">
-      <default>"#101010"</default>
-      <summary>Custom background color</summary>
-      <description>Custom background color for the panel</description>
-    </key>
     <key type="b" name="trans-use-custom-opacity">
       <default>false</default>
       <summary>Custom background color</summary>
@@ -266,31 +237,6 @@
       <default>300</default>
       <summary>Opacity change duration</summary>
       <description>The duration of the animation when the opacity changes</description>
-    </key>
-    <key type="b" name="trans-use-custom-gradient">
-      <default>false</default>
-      <summary>Custom gradient</summary>
-      <description>Replace current theme gradient for the panel</description>
-    </key>
-    <key type="s" name="trans-gradient-top-color">
-      <default>"#000"</default>
-      <summary>Custom gradient top color</summary>
-      <description>Custom gradient top color for the panel</description>
-    </key>
-    <key type="d" name="trans-gradient-top-opacity">
-      <default>0</default>
-      <summary>Custom gradient top opacity</summary>
-      <description>Custom gradient top opacity for the panel</description>
-    </key>
-    <key type="s" name="trans-gradient-bottom-color">
-      <default>"#000"</default>
-      <summary>Custom gradient bottom color</summary>
-      <description>Custom gradient bottom color for the panel</description>
-    </key>
-    <key type="d" name="trans-gradient-bottom-opacity">
-      <default>0.2</default>
-      <summary>Custom gradient bottom opacity</summary>
-      <description>Custom gradient bottom opacity for the panel</description>
     </key>
     <key type="b" name="intellihide">
       <default>false</default>
@@ -713,16 +659,6 @@
         <default>0</default>
         <summary>Leftbox font size</summary>
         <description>Set the size of the leftBox font. (0 for default)</description>
-    </key>
-    <key type="i" name="appicon-margin">
-        <default>1</default>
-        <summary>App icon margin</summary>
-        <description>Set the margin for application icons in the embedded dash.</description>
-    </key>
-    <key type="i" name="appicon-padding">
-        <default>8</default>
-        <summary>App icon padding</summary>
-        <description>Set the padding for application icons in the embedded dash.</description>
     </key>
     <key type="i" name="tray-padding">
         <default>3</default>

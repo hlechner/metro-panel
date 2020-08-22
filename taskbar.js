@@ -702,7 +702,7 @@ var taskbar = Utils.defineClass({
 
     _adjustIconSize: function() {
         let panelSize = Me.settings.get_int('panel-size');
-        let availSize = panelSize - Me.settings.get_int('appicon-padding') * 2;
+        let availSize = panelSize - 8 * 2;
         let minIconSize = MIN_ICON_SIZE + panelSize % 2;
 
         if (availSize == this.iconSize)

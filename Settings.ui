@@ -14,48 +14,6 @@
     <property name="step_increment">0.01</property>
     <property name="page_increment">0.1</property>
   </object>
-  <object class="GtkBox" id="box_advanced_options">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="orientation">vertical</property>
-    <child>
-      <object class="GtkFrame" id="frame_advanced_options">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label_xalign">0</property>
-        <property name="shadow_type">in</property>
-        <child>
-          <object class="GtkListBox" id="listbox_advanced_options">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="selection_mode">none</property>
-            <child>
-              <object class="GtkListBoxRow" id="listbox_advanced_nothing">
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child>
-                  <object class="GtkLabel" id="advanced_nothing_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="label" translatable="yes">Nothing yet!</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-  </object>
   <object class="GtkBox" id="box_clock_format_options">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -5522,7 +5480,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Panel Size
-(default is 48)</property>
+(default is 40)</property>
                             <property name="xalign">0</property>
                           </object>
                           <packing>
@@ -5542,105 +5500,6 @@
                             <property name="value_pos">right</property>
                             <signal name="format-value" handler="panel_size_scale_format_value_cb" swapped="no"/>
                             <signal name="value-changed" handler="panel_size_scale_value_changed_cb" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkListBoxRow" id="margin_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkGrid" id="margins_grid">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_right">12</property>
-                        <property name="margin_top">6</property>
-                        <property name="margin_bottom">6</property>
-                        <property name="row_spacing">12</property>
-                        <property name="column_spacing">32</property>
-                        <child>
-                          <object class="GtkLabel" id="appicon_margin_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">App Icon Margin
-(default is 8)</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScale" id="appicon_margin_scale">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="valign">baseline</property>
-                            <property name="hexpand">True</property>
-                            <property name="adjustment">appicon_margin_adjustment</property>
-                            <property name="round_digits">0</property>
-                            <property name="digits">0</property>
-                            <property name="value_pos">right</property>
-                            <signal name="format-value" handler="appicon_margin_scale_format_value_cb" swapped="no"/>
-                            <signal name="value-changed" handler="appicon_margin_scale_value_changed_cb" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkListBoxRow" id="appicon_padding_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkGrid" id="appicon_padding_grid">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_right">12</property>
-                        <property name="margin_top">6</property>
-                        <property name="margin_bottom">6</property>
-                        <property name="column_spacing">32</property>
-                        <child>
-                          <object class="GtkLabel" id="appicon_padding_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">App Icon Padding
-(default is 4)</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScale" id="appicon_padding_scale">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="valign">baseline</property>
-                            <property name="hexpand">True</property>
-                            <property name="adjustment">appicon_padding_adjustment</property>
-                            <property name="round_digits">0</property>
-                            <property name="digits">0</property>
-                            <property name="value_pos">right</property>
-                            <signal name="format-value" handler="appicon_padding_scale_format_value_cb" swapped="no"/>
-                            <signal name="value-changed" handler="appicon_padding_scale_value_changed_cb" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -5806,7 +5665,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Running indicator style (Focused app)</property>
+                            <property name="label" translatable="yes">Running indicator style</property>
                             <property name="xalign">0</property>
                           </object>
                           <packing>
@@ -5816,109 +5675,21 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkBox" id="dot_style_focused_box">
+                          <object class="GtkButton" id="dot_style_options_button">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="spacing">6</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="valign">center</property>
                             <child>
-                              <object class="GtkButton" id="dot_style_options_button">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="valign">center</property>
-                                <child>
-                                  <object class="GtkImage" id="dot_style_image">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="icon_name">emblem-system-symbolic</property>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="circular"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="dot_style_focused_combo">
+                              <object class="GtkImage" id="dot_style_image">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                                <items>
-                                  <item id="DOTS" translatable="yes">Dots</item>
-                                  <item id="SQUARES" translatable="yes">Squares</item>
-                                  <item id="DASHES" translatable="yes">Dashes</item>
-                                  <item id="SEGMENTED" translatable="yes">Segmented</item>
-                                  <item id="SOLID" translatable="yes">Solid</item>
-                                  <item id="CILIORA" translatable="yes">Ciliora</item>
-                                  <item id="METRO" translatable="yes">Metro</item>
-                                </items>
+                                <property name="icon_name">emblem-system-symbolic</property>
                               </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
                             </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkListBoxRow" id="dot_style_unfocused_listboxrow">
-                    <property name="width_request">100</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkBox" id="dot_style_unfocused_box">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_right">12</property>
-                        <property name="margin_top">12</property>
-                        <property name="margin_bottom">12</property>
-                        <property name="spacing">32</property>
-                        <child>
-                          <object class="GtkLabel" id="dot_style_unfocused_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Running indicator style (Unfocused apps)</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkComboBoxText" id="dot_style_unfocused_combo">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
-                            <items>
-                              <item id="DOTS" translatable="yes">Dots</item>
-                              <item id="SQUARES" translatable="yes">Squares</item>
-                              <item id="DASHES" translatable="yes">Dashes</item>
-                              <item id="SEGMENTED" translatable="yes">Segmented</item>
-                              <item id="SOLID" translatable="yes">Solid</item>
-                              <item id="CILIORA" translatable="yes">Ciliora</item>
-                              <item id="METRO" translatable="yes">Metro</item>
-                            </items>
+                            <style>
+                              <class name="circular"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -5953,74 +5724,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="selection_mode">none</property>
-                <child>
-                  <object class="GtkListBoxRow" id="trans_bg_row">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkGrid" id="trans_bg_grid">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_right">12</property>
-                        <property name="margin_top">12</property>
-                        <property name="margin_bottom">12</property>
-                        <property name="column_spacing">32</property>
-                        <child>
-                          <object class="GtkLabel" id="trans_bg_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Override panel theme background color </property>
-                            <property name="use_markup">True</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="trans_bg_box">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkColorButton" id="trans_bg_color_colorbutton">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">end</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkSwitch" id="trans_bg_switch">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
                 <child>
                   <object class="GtkListBoxRow" id="listbox_preview_show_title1">
                     <property name="visible">True</property>
@@ -6209,165 +5912,6 @@
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkListBoxRow" id="trans_gradient_row">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <child>
-                      <object class="GtkGrid" id="trans_gradient_grid">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_right">12</property>
-                        <property name="margin_top">12</property>
-                        <property name="margin_bottom">12</property>
-                        <property name="column_spacing">32</property>
-                        <child>
-                          <object class="GtkLabel" id="trans_gradient_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
-                            <property name="label" translatable="yes">Override panel theme gradient </property>
-                            <property name="use_markup">True</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSwitch" id="trans_gradient_switch">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkGrid" id="trans_gradient_box">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="margin_left">12</property>
-                            <property name="margin_top">12</property>
-                            <property name="row_spacing">6</property>
-                            <child>
-                              <object class="GtkLabel" id="trans_gradient_color1_label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Gradient top color and opacity (%)</property>
-                                <property name="xalign">0</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="trans_gradient_color2_label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="label" translatable="yes">Gradient bottom color and opacity (%)</property>
-                                <property name="xalign">0</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox" id="trans_gradient_color1_box">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="spacing">6</property>
-                                <child>
-                                  <object class="GtkColorButton" id="trans_gradient_color1_colorbutton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSpinButton" id="trans_gradient_color1_spinbutton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="text" translatable="yes">0</property>
-                                    <property name="adjustment">trans_gradient_opacity1_adjustment</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox" id="trans_gradient_color2_box">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="spacing">6</property>
-                                <child>
-                                  <object class="GtkColorButton" id="trans_gradient_color2_colorbutton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSpinButton" id="trans_gradient_color2_spinbutton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="text" translatable="yes">0</property>
-                                    <property name="adjustment">trans_gradient_opacity2_adjustment</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
-                            <property name="width">2</property>
                           </packing>
                         </child>
                       </object>
@@ -7931,20 +7475,6 @@
             <property name="position">4</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkButton" id="button_advanced_options">
-            <property name="label" translatable="yes">Advanced Options</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="halign">start</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
       </object>
       <packing>
         <property name="position">4</property>
@@ -7982,7 +7512,7 @@
               <object class="GtkLabel" id="extension_name">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label">&lt;b&gt;Dash-to-Panel&lt;/b&gt;</property>
+                <property name="label">&lt;b&gt;Metro-Panel&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
@@ -8038,7 +7568,7 @@
                 <property name="events"/>
                 <property name="halign">center</property>
                 <property name="relief">none</property>
-                <property name="uri">https://github.com/jderose9/dash-to-panel</property>
+                <property name="uri">https://github.com/hlechner/metro-panel</property>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -40,7 +40,6 @@ const Pos = Me.imports.panelPositions;
 const SCALE_UPDATE_TIMEOUT = 500;
 const DEFAULT_PANEL_SIZES = [ 128, 96, 64, 48, 32, 24, 16 ];
 const DEFAULT_FONT_SIZES = [ 96, 64, 48, 32, 24, 16, 0 ];
-const DEFAULT_MARGIN_SIZES = [ 32, 24, 16, 12, 8, 4, 0 ];
 const DEFAULT_PADDING_SIZES = [ 32, 24, 16, 12, 8, 4, 0, -1 ];
 const MAX_WINDOW_INDICATOR = 4;
 
@@ -545,16 +544,6 @@ const Settings = new Lang.Class({
                 break;
         }
 
-        this._builder.get_object('dot_style_focused_combo').set_active_id(this._settings.get_string('dot-style-focused'));
-        this._builder.get_object('dot_style_focused_combo').connect('changed', Lang.bind (this, function(widget) {
-            this._settings.set_string('dot-style-focused', widget.get_active_id());
-        }));
-
-        this._builder.get_object('dot_style_unfocused_combo').set_active_id(this._settings.get_string('dot-style-unfocused'));
-        this._builder.get_object('dot_style_unfocused_combo').connect('changed', Lang.bind (this, function(widget) {
-            this._settings.set_string('dot-style-unfocused', widget.get_active_id());
-        }));
-
         for (let i = 1; i <= MAX_WINDOW_INDICATOR; i++) {
             let idx = i;
             this._builder.get_object('dot_color_' + idx + '_colorbutton').connect('notify::color', Lang.bind(this, function(button) {
@@ -805,26 +794,7 @@ const Settings = new Lang.Class({
         }
         
         //dynamic opacity
-        this._settings.bind('trans-use-custom-bg',
-                            this._builder.get_object('trans_bg_switch'),
-                            'active',
-                            Gio.SettingsBindFlags.DEFAULT);
-
-        this._settings.bind('trans-use-custom-bg',
-                            this._builder.get_object('trans_bg_color_colorbutton'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
-
         let rgba = new Gdk.RGBA();
-        rgba.parse(this._settings.get_string('trans-bg-color'));
-        this._builder.get_object('trans_bg_color_colorbutton').set_rgba(rgba);
-
-        this._builder.get_object('trans_bg_color_colorbutton').connect('notify::color', Lang.bind(this, function (button) {
-            let rgba = button.get_rgba();
-            let css = rgba.to_string();
-            let hexString = cssHexString(css);
-            this._settings.set_string('trans-bg-color', hexString);
-        }));
 
         this._settings.bind('trans-use-custom-opacity',
                             this._builder.get_object('trans_opacity_override_switch'),
@@ -860,46 +830,6 @@ const Settings = new Lang.Class({
                             this._builder.get_object('trans_options_window_type_combo'),
                             'active-id',
                             Gio.SettingsBindFlags.DEFAULT);
-
-        this._settings.bind('trans-use-custom-gradient',
-                            this._builder.get_object('trans_gradient_switch'),
-                            'active',
-                            Gio.SettingsBindFlags.DEFAULT);
-
-        this._settings.bind('trans-use-custom-gradient',
-                            this._builder.get_object('trans_gradient_box'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
-
-        rgba.parse(this._settings.get_string('trans-gradient-top-color'));
-        this._builder.get_object('trans_gradient_color1_colorbutton').set_rgba(rgba);
-
-        this._builder.get_object('trans_gradient_color1_colorbutton').connect('notify::color', Lang.bind(this, function (button) {
-            let rgba = button.get_rgba();
-            let css = rgba.to_string();
-            let hexString = cssHexString(css);
-            this._settings.set_string('trans-gradient-top-color', hexString);
-        }));
-
-        this._builder.get_object('trans_gradient_color1_spinbutton').set_value(this._settings.get_double('trans-gradient-top-opacity') * 100);
-        this._builder.get_object('trans_gradient_color1_spinbutton').connect('value-changed', Lang.bind(this, function (widget) {
-            this._settings.set_double('trans-gradient-top-opacity', widget.get_value() * 0.01);
-        }));
-
-        rgba.parse(this._settings.get_string('trans-gradient-bottom-color'));
-        this._builder.get_object('trans_gradient_color2_colorbutton').set_rgba(rgba);
-
-        this._builder.get_object('trans_gradient_color2_colorbutton').connect('notify::color', Lang.bind(this, function (button) {
-            let rgba = button.get_rgba();
-            let css = rgba.to_string();
-            let hexString = cssHexString(css);
-            this._settings.set_string('trans-gradient-bottom-color', hexString);
-        }));
-
-        this._builder.get_object('trans_gradient_color2_spinbutton').set_value(this._settings.get_double('trans-gradient-bottom-opacity') * 100);
-        this._builder.get_object('trans_gradient_color2_spinbutton').connect('value-changed', Lang.bind(this, function (widget) {
-            this._settings.set_double('trans-gradient-bottom-opacity', widget.get_value() * 0.01);
-        }));
 
         this._builder.get_object('trans_options_distance_spinbutton').set_value(this._settings.get_int('trans-dynamic-distance'));
         this._builder.get_object('trans_options_distance_spinbutton').connect('value-changed', Lang.bind(this, function (widget) {
@@ -1846,44 +1776,11 @@ const Settings = new Lang.Class({
 
         }));
 
-        // setup dialog for advanced options
-        this._builder.get_object('button_advanced_options').connect('clicked', Lang.bind(this, function() {
-
-            let dialog = new Gtk.Dialog({ title: _('Advanced Options'),
-                                          transient_for: this.widget.get_toplevel(),
-                                          use_header_bar: true,
-                                          modal: true });
-
-            // GTK+ leaves positive values for application-defined response ids.
-            // Use +1 for the reset action
-            dialog.add_button(_('Reset to defaults'), 1);
-
-            let box = this._builder.get_object('box_advanced_options');
-            dialog.get_content_area().add(box);
-
-            dialog.connect('response', Lang.bind(this, function(dialog, id) {
-                if (id == 1) {
-                    // restore default settings  
-                                 
-                } else {
-                    // remove the settings box so it doesn't get destroyed;
-                    dialog.get_content_area().remove(box);
-                    dialog.destroy();
-                }
-                return;
-            }));
-
-            dialog.show_all();
-
-        }));
-
         // Fine-tune panel
 
         let sizeScales = [
             {objectName: 'tray_size_scale', valueName: 'tray-size', range: DEFAULT_FONT_SIZES },
             {objectName: 'leftbox_size_scale', valueName: 'leftbox-size', range: DEFAULT_FONT_SIZES },
-            {objectName: 'appicon_margin_scale', valueName: 'appicon-margin', range: DEFAULT_MARGIN_SIZES },
-            {objectName: 'appicon_padding_scale', valueName: 'appicon-padding', range: DEFAULT_MARGIN_SIZES },
             {objectName: 'tray_padding_scale', valueName: 'tray-padding', range: DEFAULT_PADDING_SIZES },
             {objectName: 'leftbox_padding_scale', valueName: 'leftbox-padding', range: DEFAULT_PADDING_SIZES },
             {objectName: 'statusicon_padding_scale', valueName: 'status-icon-padding', range: DEFAULT_PADDING_SIZES }
@@ -2144,38 +2041,6 @@ const Settings = new Lang.Class({
             this._leftbox_size_timeout = Mainloop.timeout_add(SCALE_UPDATE_TIMEOUT, Lang.bind(this, function() {
                 this._settings.set_int('leftbox-size', scale.get_value());
                 this._leftbox_size_timeout = 0;
-                return GLib.SOURCE_REMOVE;
-            }));
-        },
-
-        appicon_margin_scale_format_value_cb: function(scale, value) {
-            return value+ ' px';
-        },
-
-        appicon_margin_scale_value_changed_cb: function(scale) {
-            // Avoid settings the size consinuosly
-            if (this._appicon_margin_timeout > 0)
-                Mainloop.source_remove(this._appicon_margin_timeout);
-
-            this._appicon_margin_timeout = Mainloop.timeout_add(SCALE_UPDATE_TIMEOUT, Lang.bind(this, function() {
-                this._settings.set_int('appicon-margin', scale.get_value());
-                this._appicon_margin_timeout = 0;
-                return GLib.SOURCE_REMOVE;
-            }));
-        },
-
-        appicon_padding_scale_format_value_cb: function(scale, value) {
-            return value + ' px';
-        },
-
-        appicon_padding_scale_value_changed_cb: function(scale) {
-            // Avoid settings the size consinuosly
-            if (this._appicon_padding_timeout > 0)
-                Mainloop.source_remove(this._appicon_padding_timeout);
-
-            this._appicon_padding_timeout = Mainloop.timeout_add(SCALE_UPDATE_TIMEOUT, Lang.bind(this, function() {
-                this._settings.set_int('appicon-padding', scale.get_value());
-                this._appicon_padding_timeout = 0;
                 return GLib.SOURCE_REMOVE;
             }));
         },

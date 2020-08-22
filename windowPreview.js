@@ -467,7 +467,7 @@ var PreviewMenu = Utils.defineClass({
         let sourceContentBox = sourceNode.get_content_box(this.currentAppIcon.actor.get_allocation_box());
         let sourceAllocation = Shell.util_get_transformed_allocation(this.currentAppIcon.actor);
         let [previewsWidth, previewsHeight] = this._getPreviewsSize();
-        let appIconMargin = Me.settings.get_int('appicon-margin') / scaleFactor;
+        let appIconMargin = 1 / scaleFactor;
         let x = 0, y = 0;
 
         previewsWidth = Math.min(previewsWidth, this.panel.monitor.width);
