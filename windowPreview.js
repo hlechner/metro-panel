@@ -757,7 +757,11 @@ var Preview = Utils.defineClass({
             this._iconBin.set_size(headerHeight, headerHeight);
     
             headerBox.add_child(this._iconBin);
-            headerBox.insert_child_at_index(this._workspaceIndicator, isLeftButtons ? 0 : 1);
+
+            if (!Me.settings.get_boolean('isolate-workspaces')) {
+                headerBox.insert_child_at_index(this._workspaceIndicator, isLeftButtons ? 0 : 1);
+            }
+
             headerBox.insert_child_at_index(this._windowTitle, isLeftButtons ? 1 : 2);
 
             box.insert_child_at_index(headerBox, isTopHeader ? 0 : 1);
@@ -965,10 +969,11 @@ var Preview = Utils.defineClass({
                 workspaceIndex = (this.window.get_workspace().index() + 1).toString();
                 workspaceStyle = 'margin: 0 4px 0 ' + (isLeftButtons ? Math.round((headerHeight - icon.width) * .5) + 'px' : '0') + '; padding: 0 4px;' +  
                                  'border: 2px solid ' + this._getRgbaColor(FOCUSED_COLOR_OFFSET, .8) + 'border-radius: 2px;' + commonTitleStyles;
+
+                this._workspaceIndicator.text = workspaceIndex;
+                setStyle(this._workspaceIndicator, workspaceStyle);
             }
-    
-            this._workspaceIndicator.text = workspaceIndex; 
-            setStyle(this._workspaceIndicator, workspaceStyle);
+
 
             this._titleWindowChangeId = this.window.connect('notify::title', () => this._updateWindowTitle());
             setStyle(this._windowTitle, 'max-width: 0px; padding-right: 4px;' + commonTitleStyles);
