@@ -718,7 +718,7 @@ var Preview = Utils.defineClass({
             let closeIcon = new St.Icon();
             closeButton.add_actor(closeIcon);
 
-            closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path("/home/hlechner/.local/share/gnome-shell/extensions/metro-panel@hlechner.github.com/img/close.png") });
+            closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(Me.path + "/img/close.png") });
         }
 
         this._closeButtonBin = new St.Widget({ 
