@@ -1067,8 +1067,8 @@ var Preview = Utils.defineClass({
         let frameRect = cloneBin.layout_manager.frameRect || window.get_frame_rect();
         let [fixedWidth, fixedHeight] = this._previewDimensions;
         let ratio = Math.min(fixedWidth / frameRect.width, fixedHeight / frameRect.height, 1);
-        let cloneWidth = frameRect.width * ratio;
-        let cloneHeight = frameRect.height * ratio;
+        let cloneWidth = Math.ceil(frameRect.width * ratio);
+        let cloneHeight = Math.ceil(frameRect.height * ratio);
         
         let clonePaddingTB = cloneHeight < MIN_DIMENSION ? MIN_DIMENSION - cloneHeight : 0;
         let clonePaddingLR = cloneWidth < MIN_DIMENSION ? MIN_DIMENSION - cloneWidth : 0;
