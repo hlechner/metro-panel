@@ -378,6 +378,9 @@ var PreviewMenu = Utils.defineClass({
         if (this.currentAppIcon && !this.menu.hover) {
             this._addCloseTimeout();
             this._endPeek();
+            this.currentAppIcon.actor.set_hover(false);
+        } else {
+            this.currentAppIcon.actor.set_hover(true);
         }
     },
 
