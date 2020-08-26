@@ -522,7 +522,7 @@ var taskbarAppIcon = Utils.defineClass({
                     let bgSvg = '/img/highlight_stacked_bg';
 
                     if (pos == DOT_POSITION.LEFT || pos == DOT_POSITION.RIGHT) {
-                        bgSvg += (this.dtpPanel.checkIfVertical() ? '_2' : '_3');
+                        bgSvg += '-vertical';
                     }
 
                     inlineStyle += "background-image: url('" + Me.path + bgSvg + ".svg');" + 
@@ -560,7 +560,7 @@ var taskbarAppIcon = Utils.defineClass({
     },
 
     _setAppIconPadding: function() {
-        let padding = getIconPadding();
+        let padding = getIconPadding(this.dtpPanel.checkIfVertical());
         let margin = 1;
         
         if (this.buttonPosition == 0) {
@@ -1009,6 +1009,7 @@ var taskbarAppIcon = Utils.defineClass({
 
         let position = Me.settings.get_string('dot-position');
         let isHorizontalDots = position == DOT_POSITION.TOP || position == DOT_POSITION.BOTTOM;
+        let isRightDots = position == DOT_POSITION.RIGHT;
         let bodyColor = this._getRunningIndicatorColor(isFocused);
         let [areaWidth, areaHeight] = area.get_surface_size();
         let cr = area.get_context();
@@ -1033,7 +1034,8 @@ var taskbarAppIcon = Utils.defineClass({
 
         let hoverSpacing = 4;
         let fullSize = (isFocused || this._checkIfFocusedApp() || this.actor.hover) ? true : false;
-        startX = fullSize ? startX : startX + hoverSpacing;
+        startX = isHorizontalDots ? (fullSize ? startX : startX + hoverSpacing) : startX;
+        startY = isHorizontalDots ? startY : (fullSize ? startY : startY + hoverSpacing);
         areaSizeNew = fullSize ? areaSize : areaSize - (hoverSpacing * 2);
 
         if (n <= 1) {
@@ -1043,8 +1045,9 @@ var taskbarAppIcon = Utils.defineClass({
             cr.rectangle.apply(cr, [0, 0].concat(isHorizontalDots ? [areaSizeNew, size] : [size, areaSizeNew]));
             cr.fill();
         } else {
-            let blackenedLength = (1 / 48) * areaSize; // need to scale with the SVG for the stacked highlight
-            let darkenedLength = fullSize ? (3 / 48) * areaSize : (8 / 48) * areaSize;
+            let buttonWidth = isHorizontalDots ? 48 : 62;
+            let blackenedLength = (1 / buttonWidth) * areaSize; // need to scale with the SVG for the stacked highlight
+            let darkenedLength = fullSize ? (3 / buttonWidth) * areaSize : (8 / buttonWidth) * areaSize;
             let blackenedColor = bodyColor.shade(.6);
             let darkenedColor = bodyColor.shade(.7);
 
@@ -1060,15 +1063,15 @@ var taskbarAppIcon = Utils.defineClass({
 
             Clutter.cairo_set_source_color(cr, bodyColor);
             cr.newSubPath();
-            cr.rectangle.apply(cr, [0, 0].concat(isHorizontalDots ? [solidLength, size] : [size, solidLength]));
+            cr.rectangle.apply(cr, [isRightDots ? 1 : 0, 0].concat(isHorizontalDots ? [solidLength, size] : [1, areaSizeNew]));
             cr.fill();
             Clutter.cairo_set_source_color(cr, blackenedColor);
             cr.newSubPath();
-            cr.rectangle.apply(cr, isHorizontalDots ? [solidLength, 0, 1, size] : [0, solidLength, size, 1]);
+            cr.rectangle.apply(cr, isHorizontalDots ? [solidLength, 0, 1, size] : [isRightDots ? 0 : 1, 0, 1, areaSizeNew]);
             cr.fill();
             Clutter.cairo_set_source_color(cr, darkenedColor);
             cr.newSubPath();
-            cr.rectangle.apply(cr, isHorizontalDots ? [solidDarkLength, 0, darkenedLength, size] : [0, solidDarkLength, size, darkenedLength]);
+            cr.rectangle.apply(cr, isHorizontalDots ? [solidDarkLength, 0, darkenedLength, size] : [isRightDots ? -2 : 2, 0, 2, areaSizeNew]);
             cr.fill();
         }
 
@@ -1298,9 +1301,9 @@ function cssHexTocssRgba(cssHex, opacity) {
     return 'rgba(' + [r, g, b].join(',') + ',' + opacity + ')';
 }
 
-function getIconPadding() {
-    let panelSize = Me.settings.get_int('panel-size');
-    let padding = 8;
+function getIconPadding(isVertical) {
+    let panelSize = 40 * Me.settings.get_int('panel-size');
+    let padding = isVertical ? 11 : 8;
     let availSize = panelSize - Taskbar.MIN_ICON_SIZE - panelSize % 2;
 
     if (padding * 2 > availSize) {
@@ -1631,9 +1634,9 @@ var ShowAppsIconWrapper = Utils.defineClass({
     },
 
     setShowAppsPadding: function() {
-        let padding = getIconPadding(); 
-        let sidePadding = Me.settings.get_int('show-apps-icon-side-padding');
         let isVertical = this.realShowAppsIcon._dtpPanel.checkIfVertical();
+        let padding = getIconPadding(isVertical);
+        let sidePadding = Me.settings.get_int('show-apps-icon-side-padding');
 
         this.actor.set_style('padding:' + (padding + (isVertical ? sidePadding : 0)) + 'px ' + (padding + (isVertical ? 0 : sidePadding)) + 'px;');
     },

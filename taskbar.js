@@ -701,7 +701,7 @@ var taskbar = Utils.defineClass({
     },
 
     _adjustIconSize: function() {
-        let panelSize = Me.settings.get_int('panel-size');
+        let panelSize = 40 * Me.settings.get_int('panel-size');
         let availSize = 24;
         let minIconSize = MIN_ICON_SIZE + panelSize % 2;
 

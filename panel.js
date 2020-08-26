@@ -807,7 +807,7 @@ var dtpPanel = Utils.defineClass({
         let x = 0, y = 0;
         let w = 0, h = 0;
 
-        this.dtpSize = Me.settings.get_int('panel-size') * scaleFactor;
+        this.dtpSize = ((this.checkIfVertical() ? 62 : 40) * Me.settings.get_int('panel-size')) * scaleFactor;
 
         if (Me.settings.get_boolean('stockgs-keep-top-panel') && Main.layoutManager.primaryMonitor == this.monitor) {
             gsTopPanelOffset = Main.layoutManager.panelBox.height - topPadding;
@@ -1263,12 +1263,13 @@ var dtpPanel = Utils.defineClass({
             if(this._showDesktopButton)
                 return;
 
-            this._showDesktopButton = new St.Bin({ style_class: 'showdesktop-button',
-                            reactive: true,
+            this._showDesktopButton = new St.Bin({ reactive: true,
                             can_focus: true,
                             // x_fill: true,
                             // y_fill: true,
                             track_hover: true });
+
+            this._showDesktopButton.add_style_class_name(this.checkIfVertical() ? 'showdesktop-button-vertical' : 'showdesktop-button');
 
             this._setShowDesktopButtonStyle();
 

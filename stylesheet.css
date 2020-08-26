@@ -139,6 +139,10 @@
     margin-left: 8px;
 }
 
+.showdesktop-button-vertical {
+    margin-top: 8px;
+}
+
 .showdesktop-button-dark-hovered {
 	background-color: rgba(200, 200, 200, .4);
 }

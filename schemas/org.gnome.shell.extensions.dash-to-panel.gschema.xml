@@ -79,7 +79,7 @@
       <description>Panel element positions (JSON).</description>
     </key>
     <key type="i" name="panel-size">
-      <default>40</default>
+      <default>1</default>
       <summary>Panel size</summary>
       <description>Set the size of the panel.</description>
     </key>

@@ -38,7 +38,7 @@ const Update = Me.imports.update;
 const Pos = Me.imports.panelPositions;
 
 const SCALE_UPDATE_TIMEOUT = 500;
-const DEFAULT_PANEL_SIZES = [ 128, 96, 64, 48, 32, 24, 16 ];
+const DEFAULT_PANEL_SIZES = [ 5, 4, 3, 2, 1 ];
 const DEFAULT_FONT_SIZES = [ 96, 64, 48, 32, 24, 16, 0 ];
 const DEFAULT_PADDING_SIZES = [ 32, 24, 16, 12, 8, 4, 0, -1 ];
 const MAX_WINDOW_INDICATOR = 4;
@@ -236,6 +236,7 @@ const Settings = new Lang.Class({
         monitors.forEach(m => panelPositionsSettings[m] = preventTop && this.monitors[0] == m ? Pos.BOTTOM : position);
 
         this._settings.set_string('panel-positions', JSON.stringify(panelPositionsSettings));
+        this._settings.set_string('dot-position', panelPositionsSettings[0]);
     },
 
     _setPositionRadios: function(position) {
@@ -524,24 +525,6 @@ const Settings = new Lang.Class({
             // and then manually inverting it
             panel_size_scale.set_flippable(false);
             panel_size_scale.set_inverted(true);
-        }
-
-        // Dots Position option
-        let dotPosition = this._settings.get_string('dot-position');
-
-        switch (dotPosition) {
-            case 'BOTTOM':
-                this._builder.get_object('dots_bottom_button').set_active(true);
-                break;
-            case 'TOP':
-                this._builder.get_object('dots_top_button').set_active(true);
-                break;
-            case 'LEFT':
-                this._builder.get_object('dots_left_button').set_active(true);
-                break;
-            case 'RIGHT':
-                this._builder.get_object('dots_right_button').set_active(true);
-                break;
         }
 
         for (let i = 1; i <= MAX_WINDOW_INDICATOR; i++) {
@@ -1998,7 +1981,7 @@ const Settings = new Lang.Class({
         },
 
         panel_size_scale_format_value_cb: function(scale, value) {
-            return value+ ' px';
+            return value+ 'x';
         },
 
         panel_size_scale_value_changed_cb: function(scale) {
