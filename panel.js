@@ -681,7 +681,10 @@ var dtpPanel = Utils.defineClass({
             ],
             [
                 Me.settings,
-                'changed::clock-format',
+                [
+                    'changed::clock-format',
+                    'changed::panel-size'
+                ],
                 () => {
                     this._formatClock();
                 }
@@ -1206,6 +1209,7 @@ var dtpPanel = Utils.defineClass({
     _formatClock: function() {
         // https://github.com/GNOME/gnome-desktop/blob/master/libgnome-desktop/gnome-wall-clock.c#L310
         if (this.statusArea.dateMenu) {
+            let isVertical = this.checkIfVertical();
             let datetime = this.statusArea.dateMenu._clock.clock;
             let datetimeParts = datetime.split(' ');
             let time = datetimeParts[1];
@@ -1219,6 +1223,13 @@ var dtpPanel = Utils.defineClass({
 
                 var newFormat = Me.settings.get_string('clock-format');
                 var timeNow = GLib.DateTime.new_now_local();
+
+                let panelSize = Me.settings.get_int('panel-size');
+
+                // if default value and panel size > 1, then add a %A (weekday) to it
+                if (newFormat == '%;l:%M %p%n%;m/%;e/%Y' && panelSize > 1 && !isVertical) {
+                    newFormat = '%;l:%M %p%n%A%n%;m/%;e/%Y';
+                }
 
                 var newClockText = clockFormatter.format(newFormat, timeNow);
         
