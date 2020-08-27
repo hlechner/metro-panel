@@ -1568,16 +1568,12 @@ var ShowAppsIconWrapper = Utils.defineClass({
 
         let customIconPath = Me.settings.get_string('show-apps-icon-file');
 
-        let baseIconPath = Me.path + "/img/showapps-";
-        let showIconActive = baseIconPath + "active" + (isDark ? "" : "-light") + ".png";
-        let showIconInactive = baseIconPath + "inactive" + (isDark ? "" : "-light") + ".png";
-
         this.realShowAppsIcon.icon.createIcon = function(size) {
             this._iconActor = new St.Icon({ icon_size: size,
                                             style_class: 'show-apps-icon',
                                             track_hover: true });
 
-            let defaultIcon = customIconPath ? customIconPath : showIconInactive;
+            let defaultIcon = customIconPath ? customIconPath : this._iconPath('inactive');
 
             this._iconActor.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(defaultIcon) });
 
@@ -1589,16 +1585,21 @@ var ShowAppsIconWrapper = Utils.defineClass({
             this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
         });
 
+        this._changedShowAppsIconId = Me.settings.connect('changed::panel-style', () => {
+            customIconPath = this._iconPath('inactive');
+            this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
+        });
+
         this._changedShowAppsIconId = this.actor.connect('notify::hover', () => {
             if (!Me.settings.get_string('show-apps-icon-file')) {
-                customIconPath = (this.actor.checked || this.actor.hover) ? showIconActive : showIconInactive;
+                customIconPath = (this.actor.checked || this.actor.hover) ? this._iconPath('active') : this._iconPath('inactive');
                 this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
             }
         });
 
         this._changedShowAppsIconId = this.actor.connect('notify::checked', () => {
             if (!Me.settings.get_string('show-apps-icon-file')) {
-                customIconPath = (this.actor.checked || this.actor.hover) ? showIconActive : showIconInactive;
+                customIconPath = (this.actor.checked || this.actor.hover) ? this._iconPath('active') : this._iconPath('inactive');
                 this.realShowAppsIcon.icon._createIconTexture(this.realShowAppsIcon.icon.iconSize);
             }
         });
@@ -1606,6 +1607,13 @@ var ShowAppsIconWrapper = Utils.defineClass({
         this._changedAppIconSidePaddingId = Me.settings.connect('changed::show-apps-icon-side-padding', () => this.setShowAppsPadding());
         
         this.setShowAppsPadding();
+    },
+
+    _iconPath: function(iconStatus) {
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        let baseIconPath = Me.path + "/img/showapps-" + iconStatus;
+
+        return baseIconPath + (isDark ? "" : "-light") + ".png";
     },
 
     _onButtonPress: function(_actor, event) {
