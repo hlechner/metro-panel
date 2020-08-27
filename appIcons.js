@@ -1564,9 +1564,13 @@ var ShowAppsIconWrapper = Utils.defineClass({
         this.realShowAppsIcon._dtpPanel = dtpPanel;
         Taskbar.extendDashItemContainer(this.realShowAppsIcon);
 
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+
         let customIconPath = Me.settings.get_string('show-apps-icon-file');
-        let showIconActive = Me.path + "/img/showapps-active.png";
-        let showIconInactive = Me.path + "/img/showapps-inactive.png";
+
+        let baseIconPath = Me.path + "/img/showapps-";
+        let showIconActive = baseIconPath + "active" + (isDark ? "" : "-light") + ".png";
+        let showIconInactive = baseIconPath + "inactive" + (isDark ? "" : "-light") + ".png";
 
         this.realShowAppsIcon.icon.createIcon = function(size) {
             this._iconActor = new St.Icon({ icon_size: size,

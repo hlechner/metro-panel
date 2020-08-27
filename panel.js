@@ -663,8 +663,7 @@ var dtpPanel = Utils.defineClass({
                 Me.settings,
                 [
                     'changed::showdesktop-button-width',
-                    'changed::desktop-line-use-custom-color',
-                    'changed::desktop-line-custom-color'
+                    'changed::panel-style'
                 ],
                 () => this._setShowDesktopButtonStyle()
             ],
@@ -1322,10 +1321,7 @@ var dtpPanel = Utils.defineClass({
     },
 
     _setShowDesktopButtonStyle: function() {
-        let rgb = this._getBackgroundBrightness() ? "rgba(55, 55, 55, .2)" : "rgba(200, 200, 200, .2)";
-
-        let isLineCustom = Me.settings.get_boolean('desktop-line-use-custom-color');
-        rgb = isLineCustom ? Me.settings.get_string('desktop-line-custom-color') : rgb;
+        let rgb = this._getBackgroundBrightness() ? "rgba(0, 0, 0, .2)" : "rgba(200, 200, 200, .5)";
 
         if (this._showDesktopButton) {
             let buttonSize = Me.settings.get_int('showdesktop-button-width') + 'px;';

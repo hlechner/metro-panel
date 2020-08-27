@@ -28,6 +28,7 @@ const Proximity = Me.imports.proximity;
 const Utils = Me.imports.utils;
 
 const DARK_BG_COLOR = "#101010";
+const LIGHT_BG_COLOR = "#eeeeee";
 
 var DynamicTransparency = Utils.defineClass({
     Name: 'DashToPanel.DynamicTransparency',
@@ -75,6 +76,11 @@ var DynamicTransparency = Utils.defineClass({
             [
                 Utils.getStageTheme(),
                 'changed',
+                () => this._updateAllAndSet()
+            ],
+            [
+                Me.settings,
+                'changed::panel-style',
                 () => this._updateAllAndSet()
             ],
             [
@@ -159,7 +165,8 @@ var DynamicTransparency = Utils.defineClass({
     },
 
     _updateColor: function(themeBackground) {
-        this.backgroundColorRgb = DARK_BG_COLOR;
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        this.backgroundColorRgb = isDark ? DARK_BG_COLOR : LIGHT_BG_COLOR;
     },
 
     _updateAlpha: function(themeBackground) {

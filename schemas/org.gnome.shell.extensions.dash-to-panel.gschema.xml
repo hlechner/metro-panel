@@ -31,6 +31,10 @@
     <value value='2' nick='LEFT'/>
     <value value='3' nick='RIGHT'/>
   </enum>
+  <enum id='org.gnome.shell.extensions.metro-panel.style'>
+    <value value='0' nick='DARK'/>
+    <value value='1' nick='LIGHT'/>
+  </enum>
   <enum id='org.gnome.shell.extensions.metro-panel.proximityBehavior'>
     <value value='0' nick='ALL_WINDOWS'/>
     <value value='1' nick='FOCUSED_WINDOWS'/>
@@ -83,15 +87,10 @@
       <summary>Panel size</summary>
       <description>Set the size of the panel.</description>
     </key>
-    <key type="b" name="desktop-line-use-custom-color">
-      <default>true</default>
-      <summary>Override Show Desktop line color</summary>
-      <description>Replace current Show Desktop button line color</description>
-    </key>
-    <key type="s" name="desktop-line-custom-color">
-      <default>"rgba(200,200,200,0.5)"</default>
-      <summary>Custom Show Desktop line color</summary>
-      <description>Custom Show Desktop button line color</description>
+    <key name="panel-style" enum="org.gnome.shell.extensions.metro-panel.style">
+      <default>'DARK'</default>
+      <summary>Panel style</summary>
+      <description>Set the panel style</description>
     </key>
     <key name="dot-position" enum="org.gnome.shell.extensions.metro-panel.position">
       <default>'BOTTOM'</default>
