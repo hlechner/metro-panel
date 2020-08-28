@@ -21,16 +21,22 @@
  * Some code was also adapted from the upstream Gnome Shell source code.
  */
 
-.panel-button StLabel {
+.dashtopanelMainPanel.dark .panel-button StLabel{
     font-size: 10pt;
+    font-family: "Segoe UI Semibold";
+}
+
+.dashtopanelMainPanel.light .panel-button StLabel{
+    font-size: 9pt;
+    font-family: "Segoe UI Semilight";
 }
 
 .preview-window-close {
-  background-color: #3d3d3d;
+    background-color: #3d3d3d;
 }
 
 .preview-window-close:hover {
-  background-color: #c61a28;
+    background-color: #c61a28;
 }
 
 #dashtopanelTaskbar .dash-item-container > StWidget {
@@ -40,6 +46,14 @@
 
 #panel .show-apps {
     margin-right: 3px;
+}
+
+.dashtopanelMainPanel.dark .panel-button {
+    color: white;
+}
+
+.dashtopanelMainPanel.light .panel-button {
+    color: black;
 }
 
 #dashtopanelScrollview .app-well-app .overview-icon,
@@ -107,6 +121,10 @@
 	padding: 8px 0; 
 }
 
+.dashtopanelMainPanel.vertical .panel-button.clock-display {
+	margin: 0 0 11px 0;
+}
+
 #dashtopanelThumbnailList {
 	spacing: 0em;
 	padding: 0 1em;
@@ -143,12 +161,14 @@
     margin-top: 8px;
 }
 
-.showdesktop-button-dark-hovered {
-	background-color: rgba(200, 200, 200, .4);
+.dashtopanelMainPanel.dark .showdesktop-button:hover,
+.dashtopanelMainPanel.dark .showdesktop-button-vertical:hover {
+    background-color: rgba(255, 255, 255, .1);
 }
 
-.showdesktop-button-light-hovered {
-	background-color: rgba(55, 55, 55, .4);
+.dashtopanelMainPanel.light .showdesktop-button:hover,
+.dashtopanelMainPanel.light .showdesktop-button-vertical:hover {
+	background-color: rgba(255, 255, 255, .4);
 }
 
 .panel-corner.hidden:active, .panel-corner.hidden:overview, .panel-corner.hidden:focus {
@@ -173,4 +193,10 @@
       -progress-bar-background: rgba(0.8, 0.8, 0.8, 1);
       -progress-bar-border: rgba(0.9, 0.9, 0.9, 1);
     */
+}
+
+
+/*Extension: Notification Center*/
+.notification-center-panel-button .panel-status-menu-box {
+    margin: 4px 8px;
 }

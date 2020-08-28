@@ -314,7 +314,7 @@ var dtpPanel = Utils.defineClass({
         
         this._setAllocationMap();
 
-        this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation());
+        this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
 
         // Since Gnome 3.8 dragging an app without having opened the overview before cause the attemp to
         //animate a null target since some variables are not initialized when the viewSelector is created
@@ -463,7 +463,7 @@ var dtpPanel = Utils.defineClass({
         if (!this.isStandalone) {
             this.statusArea.dateMenu._clockDisplay.text = this.statusArea.dateMenu._clock.clock;
 
-            ['vertical', 'horizontal', 'dashtopanelMainPanel'].forEach(c => this.panel.actor.remove_style_class_name(c));
+            ['vertical', 'horizontal', 'dashtopanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
 
             if (!Main.sessionMode.isLocked) {
                 [['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0]].forEach(b => {
@@ -524,6 +524,16 @@ var dtpPanel = Utils.defineClass({
         }
         
         return DND.DragMotionResult.CONTINUE;
+    },
+
+    updateThemeStyle: function() {
+        ['vertical', 'horizontal', 'dashtopanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
+        this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
+    },
+
+    getTheme: function() {
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        return (isDark ? 'dark' : 'light');
     },
 
     getPosition: function() {
@@ -658,6 +668,11 @@ var dtpPanel = Utils.defineClass({
                 Me.settings,
                 'changed::show-appmenu',
                 () => this._setAppmenuVisible(Me.settings.get_boolean('show-appmenu'))
+            ],
+            [
+                Me.settings,
+                'changed::panel-style',
+                () => this.updateThemeStyle()
             ],
             [
                 Me.settings,
@@ -1285,9 +1300,6 @@ var dtpPanel = Utils.defineClass({
 
             this._showDesktopButton.connect('button-press-event', () => this._onShowDesktopButtonPress());
             this._showDesktopButton.connect('enter-event', () => {
-                this._showDesktopButton.add_style_class_name(this._getBackgroundBrightness() ?
-                            'showdesktop-button-light-hovered' : 'showdesktop-button-dark-hovered');
-
                 if (Me.settings.get_boolean('show-showdesktop-hover')) {
                     this._timeoutsHandler.add([T4, Me.settings.get_int('show-showdesktop-delay'), () => {
                         this._hiddenDesktopWorkspace = Utils.DisplayWrapper.getWorkspaceManager().get_active_workspace();
@@ -1297,9 +1309,6 @@ var dtpPanel = Utils.defineClass({
             });
             
             this._showDesktopButton.connect('leave-event', () => {
-                this._showDesktopButton.remove_style_class_name(this._getBackgroundBrightness() ?
-                            'showdesktop-button-light-hovered' : 'showdesktop-button-dark-hovered');
-
                 if (Me.settings.get_boolean('show-showdesktop-hover')) {
                     if (this._timeoutsHandler.getId(T4)) {
                         this._timeoutsHandler.remove(T4);
@@ -1321,7 +1330,8 @@ var dtpPanel = Utils.defineClass({
     },
 
     _setShowDesktopButtonStyle: function() {
-        let rgb = this._getBackgroundBrightness() ? "rgba(0, 0, 0, .2)" : "rgba(200, 200, 200, .5)";
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        let rgb = isDark ? "rgba(200, 200, 200, .5)" : "rgba(0, 0, 0, .2)";
 
         if (this._showDesktopButton) {
             let buttonSize = Me.settings.get_int('showdesktop-button-width') + 'px;';
@@ -1333,11 +1343,6 @@ var dtpPanel = Utils.defineClass({
             this._showDesktopButton.set_style(sytle);
             this._showDesktopButton[(isVertical ? 'x' : 'y') + '_expand'] = true;
         }
-    },
-
-    // _getBackgroundBrightness: return true if panel has a bright background color
-    _getBackgroundBrightness: function() {
-        return Utils.checkIfColorIsBright(this.dynamicTransparency.backgroundColorRgb);
     },
 
     _toggleWorkspaceWindows: function(hide, workspace) {
