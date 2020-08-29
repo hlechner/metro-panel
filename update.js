@@ -54,9 +54,9 @@ function checkForUpdate(fromSettings) {
             if (err) {
                 return notifyError(err);
             }
-            
+
             let latestVersion = latestRelease.tag.substring(1);
-            
+
             if (Me.metadata.version < latestVersion && latestRelease.zipUrl) {
                 notify(
                     _('Version %s (%s) is available').format(latestVersion, latestRelease.name),
@@ -136,7 +136,7 @@ function installRelease(releaseAssetUrl, fromSettings) {
             if (err) {
                 return notifyInstallResult(err);
             }
-            
+
             try {
                 FileUtils.recursivelyMoveDir(extDir, bckDir);
                 FileUtils.recursivelyMoveDir(tmpDir, extDir);
@@ -205,7 +205,7 @@ function unzipFile(zipFile, destDir, cb) {
         if (status != 0) {
             return cb('extraction error')
         }
-        
+
         return cb(null);
     });
 }

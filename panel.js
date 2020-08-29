@@ -179,7 +179,7 @@ var dtpPanel = Utils.defineClass({
         this.panel.actor.add_child(this.showAppsIconWrapper.realShowAppsIcon);
 
         this.panel.actor._delegate = this;
-        
+
         Utils.wrapActor(this.statusArea.activities);
 
         this.add_child(this.panel.actor);
@@ -211,7 +211,7 @@ var dtpPanel = Utils.defineClass({
         }
 
         this.geom = this.getGeometry();
-        
+
         // The overview uses the panel height as a margin by way of a "ghost" transparent Clone
         // This pushes everything down, which isn't desired when the panel is moved to the bottom
         // I'm adding a 2nd ghost panel and will resize the top or bottom ghost depending on the panel position
@@ -232,7 +232,7 @@ var dtpPanel = Utils.defineClass({
             Main.overview._overview.insert_child_at_index(this._myPanelGhost, 0);
         } else {
             let overviewControls = Main.overview._overview._controls || Main.overview._controls;
-            
+
              if (this.geom.position == St.Side.BOTTOM) {
                 Main.overview._overview.add_actor(this._myPanelGhost);
             } else if (this.geom.position == St.Side.LEFT) {
@@ -304,14 +304,14 @@ var dtpPanel = Utils.defineClass({
         }
 
         this.dynamicTransparency = new Transparency.DynamicTransparency(this);
-        
+
         this.taskbar = new Taskbar.taskbar(this);
 
         this.panel.actor.add_child(this.taskbar.actor);
 
         this._setAppmenuVisible(Me.settings.get_boolean('show-appmenu'));
         this._setShowDesktopButton(true);
-        
+
         this._setAllocationMap();
 
         this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
@@ -407,7 +407,7 @@ var dtpPanel = Utils.defineClass({
         }
         if (this.statusArea.dateMenu) {
             this._formatClock();
-                
+
         this._signalsHandler.add([
             this.statusArea.dateMenu._clock,
                 'notify::clock',
@@ -429,7 +429,7 @@ var dtpPanel = Utils.defineClass({
         this._timeoutsHandler.destroy();
         this._signalsHandler.destroy();
         this._disablePanelCornerSignals();
-        
+
         this.panel.actor.remove_child(this.taskbar.actor);
         this._setAppmenuVisible(false);
 
@@ -448,7 +448,7 @@ var dtpPanel = Utils.defineClass({
 
         this._myPanelGhost.get_parent().remove_actor(this._myPanelGhost);
         this._setSearchEntryOffset(0);
-        
+
         panelBoxes.forEach(b => delete this[b].allocate);
         this._unmappedButtons.forEach(a => this._disconnectVisibleId(a));
 
@@ -469,7 +469,7 @@ var dtpPanel = Utils.defineClass({
                 [['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0]].forEach(b => {
                     let container = this.statusArea[b[0]].container;
                     let originalParent = container._dtpOriginalParent;
-    
+
                     this.panel.actor.remove_child(container);
                     originalParent ? originalParent.insert_child_at_index(container, b[1]) : null;
                     delete container._dtpOriginalParent;
@@ -503,7 +503,7 @@ var dtpPanel = Utils.defineClass({
             } else {
                 Utils.hookVfunc(this.panel.__proto__, 'allocate', this.panel.__proto__.vfunc_allocate);
             }
-            
+
             this.panel.actor._delegate = this.panel;
         } else {
             this._removePanelMenu('dateMenu');
@@ -516,13 +516,13 @@ var dtpPanel = Utils.defineClass({
 
     handleDragOver: function(source, actor, x, y, time) {
         if (source == Main.xdndHandler) {
-            
+
             // open overview so they can choose a window for focusing
             // and ultimately dropping dragged item onto
             if(Main.overview.shouldToggleByCornerOrButton())
                 Main.overview.show();
         }
-        
+
         return DND.DragMotionResult.CONTINUE;
     },
 
@@ -547,16 +547,16 @@ var dtpPanel = Utils.defineClass({
         } else if (position == Pos.BOTTOM) {
             return St.Side.BOTTOM;
         }
-        
+
         return St.Side.LEFT;
     },
 
     checkIfVertical: function() {
         let position = this.getPosition();
-    
+
         return (position == St.Side.LEFT || position == St.Side.RIGHT);
     },
-    
+
     getOrientation: function() {
         return (this.checkIfVertical() ? 'vertical' : 'horizontal');
     },
@@ -565,7 +565,7 @@ var dtpPanel = Utils.defineClass({
         let panelPositions = this.panelManager.panelsElementPositions[this.monitor.index] || Pos.defaults;
 
         this._updateGroupedElements(panelPositions);
-        
+
         this._disablePanelCornerSignals();
 
         if (this.getPosition() == St.Side.TOP) {
@@ -654,7 +654,7 @@ var dtpPanel = Utils.defineClass({
 
     _bindSettingsChanges: function() {
         let isVertical = this.checkIfVertical();
-        
+
         this._signalsHandler.add(
             [
                 Me.settings,
@@ -687,7 +687,7 @@ var dtpPanel = Utils.defineClass({
                 'changed::clock-format',
                 () => {
                     this._clockFormat = null;
-                    
+
                     if (isVertical) {
                         this._formatClock();
                     }
@@ -727,7 +727,7 @@ var dtpPanel = Utils.defineClass({
             container.insert_child_at_index(this.statusArea[propName].container, 0);
         }
     },
-    
+
     _removePanelMenu: function(propName) {
         if (this.statusArea[propName]) {
             let parent = this.statusArea[propName].container.get_parent();
@@ -773,7 +773,7 @@ var dtpPanel = Utils.defineClass({
             let scaleFactor = Utils.getScaleFactor();
             let style = offset ? 'padding-' + paddingSide + ':' + (offset / scaleFactor) + 'px;' : null;
             let searchEntry = Main.overview._searchEntry || Main.overview._overview._searchEntry;
-            
+
             searchEntry.get_parent().set_style(style);
         }
     },
@@ -878,7 +878,7 @@ var dtpPanel = Utils.defineClass({
             isBox: isBox || 0,
             box: new Clutter.ActorBox() 
         };
-        
+
         setMap(Pos.SHOW_APPS_BTN, this.showAppsIconWrapper.realShowAppsIcon);
         setMap(Pos.ACTIVITIES_BTN, this.statusArea.activities ? this.statusArea.activities.container : 0);
         setMap(Pos.LEFT_BOX, this._leftBox, 1);
@@ -955,19 +955,19 @@ var dtpPanel = Utils.defineClass({
                         brSize += refGroup.size;
                     }
                 }
-                
+
                 if (group.isCentered) {
                     availableSize -= Math.max(tlSize, brSize) * 2;
                 } else {
                     availableSize -= tlSize + brSize;
                 }
-                
+
                 if (availableSize < group.size) {
                     expandable.natSize -= (group.size - availableSize) * (group.isCentered && !Pos.checkIfCentered(expandable.position) ? .5 : 1);
                     assignGroupSize(group, true);
                 }
             }
-            
+
             if (group.isCentered) {
                 startPosition = tlLimit + (brLimit - tlLimit - group.size) * .5;
             } else if (group.position == Pos.STACKED_BR) {
@@ -1042,7 +1042,7 @@ var dtpPanel = Utils.defineClass({
             let childBoxRightCorner = new Clutter.ActorBox();
             let currentCornerSize = this.cornerSize;
             let panelAllocFixedSize = box[this.fixedCoord.c2] - box[this.fixedCoord.c1];
-            
+
             [ , this.cornerSize] = this.panel._leftCorner.actor[this.sizeFunc](-1);
             childBoxLeftCorner[this.varCoord.c1] = 0;
             childBoxLeftCorner[this.varCoord.c2] = this.cornerSize;
@@ -1074,7 +1074,7 @@ var dtpPanel = Utils.defineClass({
         // styles for theming
         Object.keys(St.Side).forEach(p => {
             let cssName = 'dashtopanel' + p.charAt(0) + p.slice(1).toLowerCase();
-            
+
             this.panel.actor[(St.Side[p] == this.geom.position ? 'add' : 'remove') + '_style_class_name'](cssName);
         });
 
@@ -1200,7 +1200,7 @@ var dtpPanel = Utils.defineClass({
 
         delete actor._dtpVisibleId;
         delete actor._dtpDestroyId;
-        
+
         this._unmappedButtons.splice(this._unmappedButtons.indexOf(actor), 1);
     },
 
@@ -1246,11 +1246,11 @@ var dtpPanel = Utils.defineClass({
                 }
 
                 var newClockText = clockFormatter.format(newFormat, timeNow);
-        
+
                 clockText.set_text(newClockText);
                 clockText.set_use_markup(stacks);
                 clockText.get_allocation_box();
-        
+
                 return !clockText.get_layout().is_ellipsized();
             };
 
@@ -1307,7 +1307,7 @@ var dtpPanel = Utils.defineClass({
                     }]);
                 }
             });
-            
+
             this._showDesktopButton.connect('leave-event', () => {
                 if (Me.settings.get_boolean('show-showdesktop-hover')) {
                     if (this._timeoutsHandler.getId(T4)) {
@@ -1385,7 +1385,7 @@ var dtpPanel = Utils.defineClass({
             windows.forEach(function(w) {
                 w.minimize();
             });
-            
+
             this._restoreWindowList = windows;
 
             this._timeoutsHandler.add([T5, 20, () => this._signalsHandler.addWithLabel(
@@ -1423,12 +1423,12 @@ var dtpPanel = Utils.defineClass({
                 showWsPopup ? 0 : Main.wm._workspaceSwitcherPopup = null;
             } else if (direction && scrollAction === 'CYCLE_WINDOWS') {
                 let windows = this.taskbar.getAppInfos().reduce((ws, appInfo) => ws.concat(appInfo.windows), []);
-                
+
                 Utils.activateSiblingWindow(windows, direction);
             } else if (scrollAction === 'CHANGE_VOLUME' && !event.is_pointer_emulated()) {
                 var proto = Volume.Indicator.prototype;
                 var func = proto.vfunc_scroll_event || proto._onScrollEvent;
-    
+
                 func.call(Main.panel.statusArea.aggregateMenu._volume, 0, event);
             } else {
                 return;
@@ -1500,7 +1500,7 @@ var dtpSecondaryAggregateMenu = Utils.defineClass({
         this._brightness = new imports.ui.status.brightness.Indicator();
         this._system = new imports.ui.status.system.Indicator();
         this._screencast = new imports.ui.status.screencast.Indicator();
-        
+
         if (Config.PACKAGE_VERSION >= '3.24') {
             this._nightLight = new imports.ui.status.nightLight.Indicator();
         }
@@ -1529,7 +1529,7 @@ var dtpSecondaryAggregateMenu = Utils.defineClass({
         this.menu.addMenuItem(this._volume.menu);
         this._volume._volumeMenu._readOutput();
         this._volume._volumeMenu._readInput();
-        
+
         this.menu.addMenuItem(this._brightness.menu);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         if (this._network) {

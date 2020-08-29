@@ -135,16 +135,16 @@ var taskbarAppIcon = Utils.defineClass({
 
         Utils.wrapActor(this.icon);
         Utils.wrapActor(this);
-        
+
         this._dot.set_width(0);
         this._isGroupApps = Me.settings.get_boolean('group-apps');
-        
+
         this._container = new St.Widget({ style_class: 'dtp-container', layout_manager: new Clutter.BinLayout() });
         this._dotsContainer = new St.Widget({ layout_manager: new Clutter.BinLayout() });
         this._dtpIconContainer = new St.Widget({ layout_manager: new Clutter.BinLayout(), style: this.getIconContainerStyle() });
 
         this.actor.remove_actor(this._iconContainer);
-        
+
         this._dtpIconContainer.add_child(this._iconContainer);
 
         if (appInfo.window) {
@@ -155,7 +155,7 @@ var taskbarAppIcon = Utils.defineClass({
                 x_align: Clutter.ActorAlign.START, 
                 style_class: 'overview-label' 
             });
-            
+
             this._updateWindowTitle();
             this._updateWindowTitleStyle();
 
@@ -197,7 +197,7 @@ var taskbarAppIcon = Utils.defineClass({
                 this._windowEnteredMonitorId = Utils.DisplayWrapper.getScreen().connect('window-entered-monitor', this.onWindowEnteredOrLeft.bind(this));
                 this._windowLeftMonitorId = Utils.DisplayWrapper.getScreen().connect('window-left-monitor', this.onWindowEnteredOrLeft.bind(this));
             }
-            
+
             this._titleWindowChangeId = 0;
             this._minimizedWindowChangeId = 0;
         } else {
@@ -207,7 +207,7 @@ var taskbarAppIcon = Utils.defineClass({
             this._minimizedWindowChangeId = this.window.connect('notify::minimized',
                                                 Lang.bind(this, this._updateWindowTitleStyle));
         }
-        
+
         this._scrollEventId = this.actor.connect('scroll-event', this._onMouseScroll.bind(this));
 
         this._overviewWindowDragEndId = Main.overview.connect('window-drag-end',
@@ -217,7 +217,7 @@ var taskbarAppIcon = Utils.defineClass({
                                                 Lang.bind(this, this._onSwitchWorkspace));
 
         this._hoverChangeId = this.actor.connect('notify::hover', () => this._onAppIconHoverChanged());
-        
+
         this._dtpSettingsSignalIds = [
             Me.settings.connect('changed::dot-position', Lang.bind(this, this._settingsChangeRefresh)),
             Me.settings.connect('changed::dot-size', Lang.bind(this, this._settingsChangeRefresh)),
@@ -291,7 +291,7 @@ var taskbarAppIcon = Utils.defineClass({
 
         // Disconect global signals
         // stateChangedId is already handled by parent)
-        
+
         if(this._overviewWindowDragEndId)
             Main.overview.disconnect(this._overviewWindowDragEndId);
 
@@ -367,7 +367,7 @@ var taskbarAppIcon = Utils.defineClass({
 
     _onMouseScroll: function(actor, event) {
         let scrollAction = Me.settings.get_string('scroll-icon-action');
-        
+
         if (scrollAction === 'PASS_THROUGH') {
             return this.dtpPanel._onPanelMouseScroll(actor, event);
         } else if (scrollAction === 'NOTHING' || (!this.window && !this._nWindows)) {
@@ -385,7 +385,7 @@ var taskbarAppIcon = Utils.defineClass({
             Utils.activateSiblingWindow(windows, direction, this.window);
         }
     },
-    
+
     _showDots: function() {
         // Just update style if dots already exist
         if (this._focusedDots && this._unfocusedDots) {
@@ -409,7 +409,7 @@ var taskbarAppIcon = Utils.defineClass({
             this._unfocusedDots = new St.DrawingArea();
             this._focusedDots._tweeningToSize = null, 
             this._unfocusedDots._tweeningToSize = null;
-            
+
             this._focusedDots.connect('repaint', Lang.bind(this, function() {
                 if(this._dashItemContainer.animatingOut) {
                     // don't draw and trigger more animations if the icon is in the middle of
@@ -419,7 +419,7 @@ var taskbarAppIcon = Utils.defineClass({
                 this._drawRunningIndicator(this._focusedDots, true);
                 this._displayProperIndicator();
             }));
-            
+
             this._unfocusedDots.connect('repaint', Lang.bind(this, function() {
                 if(this._dashItemContainer.animatingOut) {
                     // don't draw and trigger more animations if the icon is in the middle of
@@ -429,9 +429,9 @@ var taskbarAppIcon = Utils.defineClass({
                 this._drawRunningIndicator(this._unfocusedDots, false);
                 this._displayProperIndicator();
             }));
-                
+
             this._dotsContainer.add_child(this._unfocusedDots);
-    
+
             this._updateWindows();
 
             this._timeoutsHandler.add([T3, 0, () => {
@@ -496,7 +496,7 @@ var taskbarAppIcon = Utils.defineClass({
     _updateWindowTitle: function() {
         if (this._windowTitle.text != this.window.title) {
             this._windowTitle.text = (this.window.title ? this.window.title : this.app.get_name()).replace(/\r?\n|\r/g, '').trim();
-            
+
             if (this._focusedDots) {
                 this._displayProperIndicator();
             }
@@ -536,7 +536,7 @@ var taskbarAppIcon = Utils.defineClass({
                 inlineStyle += "background-color: " + cssHexTocssRgba(highlightColor, Me.settings.get_int('focus-highlight-opacity') * multiplier);
             }
         }
-        
+
         if(this._dotsContainer.get_style() != inlineStyle && this._dotsContainer.mapped) {
             if (!this._isGroupApps) {
                 //when the apps are ungrouped, set the style synchronously so the icons don't jump around on taskbar redraw
@@ -562,7 +562,7 @@ var taskbarAppIcon = Utils.defineClass({
     _setAppIconPadding: function() {
         let padding = getIconPadding(this.dtpPanel.checkIfVertical());
         let margin = 1;
-        
+
         if (this.buttonPosition == 0) {
             this.actor.set_style('padding: 0;');
         } else {
@@ -574,7 +574,7 @@ var taskbarAppIcon = Utils.defineClass({
     popupMenu: function() {
         this._removeMenuTimeout();
         this.actor.fake_release();
-        
+
         if (this._draggable) { 
             this._draggable.fakeRelease();
         }
@@ -635,7 +635,7 @@ var taskbarAppIcon = Utils.defineClass({
         if(!this._isGroupApps) {
             if (this.window && (Me.settings.get_boolean('group-apps-underline-unfocused') || isFocused)) {
                 let align = Clutter.ActorAlign[position == DOT_POSITION.TOP || position == DOT_POSITION.LEFT ? 'START' : 'END'];
-                
+
                 this._focusedDots.set_size(0, 0);
                 this._focusedDots[isHorizontalDots ? 'height' : 'width'] = this._getRunningIndicatorSize();
 
@@ -651,12 +651,12 @@ var taskbarAppIcon = Utils.defineClass({
             let containerSize = this._container[sizeProp];
             let focusedIsWide = true;
             let unfocusedIsWide = true;
-    
+
             let newFocusedDotsSize = 0;
             let newFocusedDotsOpacity = 0;
             let newUnfocusedDotsSize = 0;
             let newUnfocusedDotsOpacity = 0;
-            
+
             isFocused = this._checkIfFocusedApp() && this._checkIfMonitorHasFocus();
 
             this._timeoutsHandler.add([T6, 0, () => {
@@ -675,7 +675,7 @@ var taskbarAppIcon = Utils.defineClass({
                 newFocusedDotsSize = containerSize;
                 newFocusedDotsOpacity = (isFocused && this._nWindows > 0) ? 255 : 0;
             }
-    
+
             if(unfocusedIsWide) {
                 newUnfocusedDotsSize = (!isFocused && this._nWindows > 0) ? containerSize : 0;
                 newUnfocusedDotsOpacity = 255;
@@ -683,7 +683,7 @@ var taskbarAppIcon = Utils.defineClass({
                 newUnfocusedDotsSize = containerSize;
                 newUnfocusedDotsOpacity = (!isFocused && this._nWindows > 0) ? 255 : 0;
             }
-    
+
             // Only animate if...
             // animation is enabled in settings
             // AND (going from a wide style to a narrow style indicator or vice-versa
@@ -726,7 +726,7 @@ var taskbarAppIcon = Utils.defineClass({
 
     _isFocusedWindow: function() {
         let focusedWindow = global.display.focus_window;
-        
+
         while (focusedWindow) {
             if (focusedWindow == this.window) {
                 return true;
@@ -801,9 +801,9 @@ var taskbarAppIcon = Utils.defineClass({
                         } else {
                             Main.activateWindow(this.window);
                         }
-                        
+
                         break;
-        
+
                     case "LAUNCH":
                         this._launchNewInstance();
                         break;
@@ -821,11 +821,11 @@ var taskbarAppIcon = Utils.defineClass({
                     case "RAISE":
                         activateAllWindows(this.app, monitor);
                         break;
-        
+
                     case "LAUNCH":
                         this._launchNewInstance();
                         break;
-        
+
                     case "MINIMIZE":
                         // In overview just activate the app, unless the acion is explicitely
                         // requested with a keyboard modifier
@@ -844,7 +844,7 @@ var taskbarAppIcon = Utils.defineClass({
                         else
                             this.app.activate();
                         break;
-        
+
                     case "CYCLE":
                         if (!Main.overview._shown){
                             if (appHasFocus) 
@@ -881,14 +881,14 @@ var taskbarAppIcon = Utils.defineClass({
                                 } else if (previewedAppIcon != this) {
                                     this._previewMenu.open(this);
                                 }
-    
+
                                 this.emit('sync-tooltip');
                             } 
                         }
                         else
                             this.app.activate();
                         break;
-        
+
                     case "QUIT":
                         closeAllWindows(this.app, monitor);
                         break;
@@ -929,12 +929,12 @@ var taskbarAppIcon = Utils.defineClass({
 
     _updateWindows: function() {
         let windows = [this.window];
-        
+
         if (!this.window) {
             windows = this.getAppIconInterestingWindows();
-        
+
             this._nWindows = windows.length;
-    
+
             for (let i = 1; i <= MAX_INDICATORS; i++){
                 let className = 'running'+i;
                 if(i != this._nWindows)
@@ -973,7 +973,7 @@ var taskbarAppIcon = Utils.defineClass({
             }
         } else if(Me.settings.get_boolean('dot-color-override')) {
             let dotColorSettingPrefix = 'dot-color-';
-            
+
             if(!isFocused && Me.settings.get_boolean('dot-color-unfocused-different'))
                 dotColorSettingPrefix = 'dot-color-unfocused-';
 
@@ -1075,7 +1075,7 @@ var taskbarAppIcon = Utils.defineClass({
             cr.fill();
         }
 
-        
+
         cr.$dispose();
     },
 
@@ -1136,7 +1136,7 @@ var taskbarAppIcon = Utils.defineClass({
         if (source == Main.xdndHandler) {
             this._previewMenu.close(true);
         }
-            
+
         return DND.DragMotionResult.CONTINUE;
     },
 
@@ -1152,13 +1152,13 @@ var taskbarAppIcon = Utils.defineClass({
     getIconContainerStyle: function() {
         let style = 'padding: ';
         let isVertical = this.dtpPanel.checkIfVertical();
-    
+
         if (Me.settings.get_boolean('group-apps')) {
             style += (isVertical ? '0;' : '0 ' + DEFAULT_PADDING_SIZE + 'px;');
         } else {
             style += (isVertical ? '' : '0 ') + DEFAULT_PADDING_SIZE + 'px;';
         }
-    
+
         return style;
     }
 });
@@ -1221,7 +1221,7 @@ function cycleThroughWindows(app, reversed, shouldMinimize, monitor) {
 
     if (recentlyClickedAppLoopId > 0)
         Mainloop.source_remove(recentlyClickedAppLoopId);
-        
+
     recentlyClickedAppLoopId = Mainloop.timeout_add(MEMORY_TIME, resetRecentlyClickedApp);
 
     // If there isn't already a list of windows for the current app,
@@ -1243,7 +1243,7 @@ function cycleThroughWindows(app, reversed, shouldMinimize, monitor) {
         recentlyClickedAppIndex++;
     }
     let index = recentlyClickedAppIndex % recentlyClickedAppWindows.length;
-    
+
     if(recentlyClickedAppWindows[index] === "MINIMIZE")
         minimizeWindow(app, true, monitor);
     else
@@ -1288,7 +1288,7 @@ function getInterestingWindows(app, monitor, isolateMonitors) {
             return w.get_monitor() == monitor.index;
         });
     }
-    
+
     return windows;
 }
 
@@ -1371,7 +1371,7 @@ var taskbarSecondaryMenu = Utils.defineClass({
                     let labelText = menuItem.actor.label_actor.text;
                     if(labelText == _("New Window") || labelText == _("Quit"))
                         continue;
-                    
+
                     if(menuItem instanceof PopupMenu.PopupSeparatorMenuItem)
                         continue;
 
@@ -1413,7 +1413,7 @@ var taskbarSecondaryMenu = Utils.defineClass({
                     } else 
                         this.addMenuItem(menuItem, i);
                 }
-                
+
                 if(i > 0) {
                     let separator = new PopupMenu.PopupSeparatorMenuItem();
                     this.addMenuItem(separator, i);
@@ -1503,11 +1503,11 @@ function ItemShowLabel()  {
     this.label.set_position(Math.round(x), Math.round(y));
 
     let duration = Dash.DASH_ITEM_LABEL_SHOW_TIME; 
-    
+
     if (duration > 1) {
         duration /= 1000;
     }
-        
+
     Utils.animate(this.label, { 
         opacity: 255,
         time: duration,
@@ -1605,7 +1605,7 @@ var ShowAppsIconWrapper = Utils.defineClass({
         });
 
         this._changedAppIconSidePaddingId = Me.settings.connect('changed::show-apps-icon-side-padding', () => this.setShowAppsPadding());
-        
+
         this.setShowAppsPadding();
     },
 
@@ -1710,7 +1710,7 @@ var MyShowAppsIconMenu = Utils.defineClass({
 
     _dtpRedisplay: function() {
         this.removeAll();
-        
+
         // Only add menu entries for commands that exist in path
         function _appendItem(obj, info) {
             if (Utils.checkIfCommandExists(info.cmd[0])) {
@@ -1724,12 +1724,12 @@ var MyShowAppsIconMenu = Utils.defineClass({
 
             return null;
         }
-        
+
         function _appendList(obj, commandList, titleList) {
             if (commandList.length != titleList.length) {
                 return;
             }
-            
+
             for (var entry = 0; entry < commandList.length; entry++) {
                 _appendItem(obj, {
                     title: titleList[entry],
