@@ -519,11 +519,12 @@ var taskbarAppIcon = Utils.defineClass({
                                      (containerWidth - (pos == DOT_POSITION.BOTTOM ? highlightMargin : 0)) + "px;";
 
                 if (this._nWindows > 1) {
-                    let bgSvg = '/img/highlight_stacked_bg';
+                    let isDark = Me.settings.get_string('panel-style') == 'DARK';
+                    let isVertical = pos == DOT_POSITION.LEFT || pos == DOT_POSITION.RIGHT;
 
-                    if (pos == DOT_POSITION.LEFT || pos == DOT_POSITION.RIGHT) {
-                        bgSvg += '-vertical';
-                    }
+                    let bgSvg = '/img/highlight_stacked_bg';
+                    bgSvg += isDark ? '' : '-light';
+                    bgSvg += isVertical ? '-vertical' : '';
 
                     inlineStyle += "background-image: url('" + Me.path + bgSvg + ".svg');" + 
                                    "background-position: 0 " + (pos == DOT_POSITION.TOP ? highlightMargin : 0) + "px;" +

@@ -31,12 +31,20 @@
     font-family: "Segoe UI Semilight";
 }
 
-.preview-window-close {
+.preview-window-close-dark {
     background-color: #3d3d3d;
 }
 
-.preview-window-close:hover {
+.preview-window-close-dark:hover {
     background-color: #c61a28;
+}
+
+.preview-window-close-light {
+    background-color: #e9e9e9;
+}
+
+.preview-window-close-light:hover {
+    background-color: #e93d4b;
 }
 
 #dashtopanelTaskbar .dash-item-container > StWidget {
@@ -78,11 +86,22 @@
 	background-color: rgba(255, 255, 255, 0.053);
 }
 
-#panel .panel-button:hover,
-.dashtopanelMainPanel .show-apps:hover,
-#dashtopanelScrollview .app-well-app:hover .dtp-container,
-#dashtopanelScrollview .app-well-app:focus .dtp-container {
+.dashtopanelMainPanel.dark .panel-button:hover,
+.dashtopanelMainPanel.dark .show-apps:hover,
+.dashtopanelMainPanel.dark .app-well-app:hover .dtp-container,
+.dashtopanelMainPanel.dark .app-well-app:focus .dtp-container {
 	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashtopanelMainPanel.light .panel-button:hover,
+.dashtopanelMainPanel.light .show-apps:hover,
+.dashtopanelMainPanel.light .app-well-app:hover .dtp-container,
+.dashtopanelMainPanel.light .app-well-app:focus .dtp-container {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+.dashtopanelMainPanel.light .app-well-app.focused .dtp-container {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 #dashtopanelScrollview .app-well-app:active .dtp-container {

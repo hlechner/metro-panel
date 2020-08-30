@@ -48,17 +48,19 @@ const HEADER_HEIGHT = 32;
 const MAX_CLOSE_BUTTON_SIZE = 32;
 const MIN_DIMENSION = 100;
 const DEFAULT_COLOR_OFFSET = 24;
-const FOCUSED_COLOR_OFFSET = 45;
 const HEADER_COLOR_OFFSET = -12;
 const FADE_SIZE = 36;
 const PEEK_INDEX_PROP = '_dtpPeekInitialIndex';
-const BACKGROUND_DARK = '#282828';
-const BACKGROUND_LIGHT = '#e4e4e4';
-const FONT_DARK = 'white';
-const FONT_LIGHT = 'black';
 const FONT_SIZE = 12;
 const ICON_SIZE = 16;
 const PREVIEW_PADDING = 8;
+
+const FOCUSED_DARK_OFFSET = 45;
+const FOCUSED_LIGHT_OFFSET = -5;
+const FONT_DARK = 'white';
+const FONT_LIGHT = 'black';
+const BACKGROUND_DARK = '#282828';
+const BACKGROUND_LIGHT = '#e4e4e4';
 
 let headerHeight = 0;
 let alphaBg = 0;
@@ -722,14 +724,15 @@ var Preview = Utils.defineClass({
 
         let box = new St.Widget({ layout_manager: new Clutter.BoxLayout({ orientation: Clutter.Orientation.VERTICAL }), y_expand: true });
         let [previewBinWidth, previewBinHeight] = this._getBinSize();
-        let closeButton = new St.Button({ style_class: 'preview-window-close', accessible_name: 'Close window' });
+        let closeButton = new St.Button({ accessible_name: 'Close window' });
 
-        if (Config.PACKAGE_VERSION >= '3.31.9') {
-            let closeIcon = new St.Icon();
-            closeButton.add_actor(closeIcon);
+        let closeButtonStyle = isDark ? 'preview-window-close-dark' : 'preview-window-close-light';
+        closeButton.add_style_class_name(closeButtonStyle);
 
-            closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(Me.path + "/img/close.png") });
-        }
+        this.closeIcon = new St.Icon();
+        closeButton.add_actor(this.closeIcon);
+
+        this.closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(this._iconPath()) });
 
         this._closeButtonBin = new St.Widget({ 
             style_class: 'preview-close-btn-container',
@@ -781,9 +784,21 @@ var Preview = Utils.defineClass({
         this.add_child(this._closeButtonBin);
 
         closeButton.connect('clicked', () => this._onCloseBtnClick());
+        closeButton.connect('notify::hover', () => this._iconUpdate(closeButton.hover));
         this.connect('notify::hover', () => this._onHoverChanged());
         this.connect('button-release-event', (actor, e) => this._onButtonReleaseEvent(e));
         this.connect('destroy', () => this._onDestroy());
+    },
+
+    _iconUpdate: function(hover) {
+        this.closeIcon.gicon = new Gio.FileIcon({ file: Gio.File.new_for_path(this._iconPath(hover)) });
+    },
+
+    _iconPath: function(hover) {
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        let baseIconPath = Me.path + "/img/close";
+
+        return baseIconPath + (isDark || hover ? "" : "-light") + ".png";
     },
 
     adjustOnStage: function() {
@@ -860,7 +875,10 @@ var Preview = Utils.defineClass({
 
     setFocus: function(focused) {
         this._hideOrShowCloseButton(!focused);
-        setStyle(this, this._getBackgroundColor(FOCUSED_COLOR_OFFSET, focused ? '-' : 0));
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        let offsetColor = isDark ? FOCUSED_DARK_OFFSET : FOCUSED_LIGHT_OFFSET;
+
+        setStyle(this, this._getBackgroundColor(offsetColor, focused ? '-' : 0));
 
         if (focused) {
             this._previewMenu.ensureVisible(this);
@@ -977,8 +995,11 @@ var Preview = Utils.defineClass({
 
             if (!Me.settings.get_boolean('isolate-workspaces')) {
                 workspaceIndex = (this.window.get_workspace().index() + 1).toString();
+
+                let offsetColor = isDark ? FOCUSED_DARK_OFFSET : FOCUSED_LIGHT_OFFSET;
+
                 workspaceStyle = 'margin: 0 4px 0 ' + (isLeftButtons ? Math.round((headerHeight - icon.width) * .5) + 'px' : '0') + '; padding: 0 4px;' +  
-                                 'border: 2px solid ' + this._getRgbaColor(FOCUSED_COLOR_OFFSET, .8) + 'border-radius: 2px;' + commonTitleStyles;
+                                 'border: 2px solid ' + this._getRgbaColor(offsetColor, .8) + 'border-radius: 2px;' + commonTitleStyles;
 
                 this._workspaceIndicator.text = workspaceIndex;
                 setStyle(this._workspaceIndicator, workspaceStyle);
