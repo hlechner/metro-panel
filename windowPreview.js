@@ -52,6 +52,13 @@ const FOCUSED_COLOR_OFFSET = 45;
 const HEADER_COLOR_OFFSET = -12;
 const FADE_SIZE = 36;
 const PEEK_INDEX_PROP = '_dtpPeekInitialIndex';
+const BACKGROUND_DARK = '#282828';
+const BACKGROUND_LIGHT = '#e4e4e4';
+const FONT_DARK = 'white';
+const FONT_LIGHT = 'black';
+const FONT_SIZE = 12;
+const ICON_SIZE = 16;
+const PREVIEW_PADDING = 8;
 
 let headerHeight = 0;
 let alphaBg = 0;
@@ -148,7 +155,6 @@ var PreviewMenu = Utils.defineClass({
                 [
                     'changed::panel-size',
                     'changed::window-preview-size',
-                    'changed::window-preview-padding',
                     'changed::window-preview-show-title'
                 ],
                 () => {
@@ -440,7 +446,7 @@ var PreviewMenu = Utils.defineClass({
         let geom = this.panel.getGeometry();
         let panelBoxTheme = this.panel.panelBox.get_theme_node();
         let previewSize = (Me.settings.get_int('window-preview-size') + 
-                           Me.settings.get_int('window-preview-padding') * 2) * scaleFactor;
+                           PREVIEW_PADDING * 2) * scaleFactor;
 
         if (this.isVertical) {
             w = previewSize;
@@ -706,9 +712,13 @@ var Preview = Utils.defineClass({
         this._needsCloseButton = true;
         this.cloneWidth = this.cloneHeight = 0;
         this._previewMenu = previewMenu;
-        this._padding = Me.settings.get_int('window-preview-padding') * scaleFactor;
+        this._padding = PREVIEW_PADDING * scaleFactor;
         this._previewDimensions = this._getPreviewDimensions();
         this.animatingOut = false;
+
+        let isDark = Me.settings.get_string('panel-style') == 'DARK';
+        let backgroundColor = isDark ? BACKGROUND_DARK : BACKGROUND_LIGHT;
+        this.set_style('background: ' + backgroundColor);
 
         let box = new St.Widget({ layout_manager: new Clutter.BoxLayout({ orientation: Clutter.Orientation.VERTICAL }), y_expand: true });
         let [previewBinWidth, previewBinHeight] = this._getBinSize();
@@ -951,15 +961,15 @@ var Preview = Utils.defineClass({
 
     _updateHeader: function() {
         if (headerHeight) {
-            let iconTextureSize = Me.settings.get_boolean('window-preview-use-custom-icon-size') ? 
-                                  Me.settings.get_int('window-preview-custom-icon-size') : 
-                                  headerHeight / scaleFactor * .6;
-            let icon = this._previewMenu.getCurrentAppIcon().app.create_icon_texture(iconTextureSize);
+            let icon = this._previewMenu.getCurrentAppIcon().app.create_icon_texture(ICON_SIZE);
             let workspaceIndex = '';
             let workspaceStyle = null;
             let fontScale = Me.desktopSettings.get_double('text-scaling-factor');
-            let commonTitleStyles = 'color: ' + Me.settings.get_string('window-preview-title-font-color') + ';' +
-                                    'font-size: ' + Me.settings.get_int('window-preview-title-font-size') * fontScale + 'px;' +
+
+            let isDark = Me.settings.get_string('panel-style') == 'DARK';
+            let fontColor = isDark ? FONT_DARK : FONT_LIGHT;
+            let commonTitleStyles = 'color: ' + fontColor + ';' +
+                                    'font-size: ' + FONT_SIZE * fontScale + 'px;' +
                                     'font-weight: ' + Me.settings.get_string('window-preview-title-font-weight') + ';';
 
             this._iconBin.destroy_all_children();

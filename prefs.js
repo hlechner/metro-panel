@@ -1073,12 +1073,6 @@ const Settings = new Lang.Class({
 
         this._setPreviewTitlePosition();
 
-        this._builder.get_object('grid_preview_title_font_color_colorbutton').connect('notify::color', Lang.bind(this, function (button) {
-            let rgba = button.get_rgba();
-            let css = rgba.to_string();
-            let hexString = cssHexString(css);
-            this._settings.set_string('window-preview-title-font-color', hexString);
-        }));
 
         this._builder.get_object('show_window_previews_button').connect('clicked', Lang.bind(this, function() {
 
@@ -1125,14 +1119,6 @@ const Settings = new Lang.Class({
                             this._builder.get_object('preview_custom_opacity_spinbutton'),
                             'sensitive',
                             Gio.SettingsBindFlags.DEFAULT);
-            this._settings.bind('window-preview-use-custom-icon-size',
-                            this._builder.get_object('preview_custom_icon_size_switch'),
-                            'active',
-                            Gio.SettingsBindFlags.DEFAULT);
-            this._settings.bind('window-preview-use-custom-icon-size',
-                            this._builder.get_object('preview_custom_icon_size_spinbutton'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
 
             this._builder.get_object('preview_custom_opacity_spinbutton').set_value(this._settings.get_int('preview-custom-opacity'));
             this._builder.get_object('preview_custom_opacity_spinbutton').connect('value-changed', Lang.bind (this, function(widget) {
@@ -1156,20 +1142,9 @@ const Settings = new Lang.Class({
                             this._builder.get_object('preview_show_title_switch'),
                             'active',
                             Gio.SettingsBindFlags.DEFAULT);
-            this._settings.bind('window-preview-show-title',
-                            this._builder.get_object('grid_preview_custom_icon_size'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
-            this._settings.bind('window-preview-show-title',
-                            this._builder.get_object('grid_preview_title_size'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
+
             this._settings.bind('window-preview-show-title',
                             this._builder.get_object('grid_preview_title_weight'),
-                            'sensitive',
-                            Gio.SettingsBindFlags.DEFAULT);
-            this._settings.bind('window-preview-show-title',
-                            this._builder.get_object('grid_preview_title_font_color'),
                             'sensitive',
                             Gio.SettingsBindFlags.DEFAULT);
 
@@ -1213,31 +1188,10 @@ const Settings = new Lang.Class({
                 this._settings.set_int('window-preview-aspect-ratio-y', parseInt(widget.get_active_id(), 10));
             }));
 
-            this._builder.get_object('preview_padding_spinbutton').set_value(this._settings.get_int('window-preview-padding'));
-            this._builder.get_object('preview_padding_spinbutton').connect('value-changed', Lang.bind (this, function(widget) {
-                this._settings.set_int('window-preview-padding', widget.get_value());
-            }));
-
-            this._builder.get_object('preview_title_size_spinbutton').set_value(this._settings.get_int('window-preview-title-font-size'));
-            this._builder.get_object('preview_title_size_spinbutton').connect('value-changed', Lang.bind (this, function(widget) {
-                this._settings.set_int('window-preview-title-font-size', widget.get_value());
-            }));
-
-            this._builder.get_object('preview_custom_icon_size_spinbutton').set_value(this._settings.get_int('window-preview-custom-icon-size'));
-            this._builder.get_object('preview_custom_icon_size_spinbutton').connect('value-changed', Lang.bind (this, function(widget) {
-                this._settings.set_int('window-preview-custom-icon-size', widget.get_value());
-            }));
-
             this._builder.get_object('grid_preview_title_weight_combo').set_active_id(this._settings.get_string('window-preview-title-font-weight'));
             this._builder.get_object('grid_preview_title_weight_combo').connect('changed', Lang.bind (this, function(widget) {
                 this._settings.set_string('window-preview-title-font-weight', widget.get_active_id());
             }));
-
-            (function() {
-                let rgba = new Gdk.RGBA();
-                rgba.parse(this._settings.get_string('window-preview-title-font-color'));
-                this._builder.get_object('grid_preview_title_font_color_colorbutton').set_rgba(rgba);
-            }).apply(this);
 
             dialog.connect('response', Lang.bind(this, function(dialog, id) {
                 if (id == 1) {
@@ -1254,8 +1208,6 @@ const Settings = new Lang.Class({
                     this._builder.get_object('animation_time_spinbutton').set_value(this._settings.get_int('window-preview-animation-time'));
 
                     this._settings.set_value('preview-use-custom-opacity', this._settings.get_default_value('preview-use-custom-opacity'));
-
-                    this._settings.set_value('window-preview-use-custom-icon-size', this._settings.get_default_value('window-preview-use-custom-icon-size'));
 
                     this._settings.set_value('preview-custom-opacity', this._settings.get_default_value('preview-custom-opacity'));
                     this._builder.get_object('preview_custom_opacity_spinbutton').set_value(this._settings.get_int('preview-custom-opacity'));
@@ -1282,24 +1234,10 @@ const Settings = new Lang.Class({
                     this._settings.set_value('window-preview-aspect-ratio-y', this._settings.get_default_value('window-preview-aspect-ratio-y'));
                     this._builder.get_object('preview_aspect_ratio_y_combo').set_active_id(this._settings.get_int('window-preview-aspect-ratio-y').toString());
 
-                    this._settings.set_value('window-preview-padding', this._settings.get_default_value('window-preview-padding'));
-                    this._builder.get_object('preview_padding_spinbutton').set_value(this._settings.get_int('window-preview-padding'));
-
                     this._settings.set_value('preview-middle-click-close', this._settings.get_default_value('preview-middle-click-close'));
-
-                    this._settings.set_value('window-preview-title-font-size', this._settings.get_default_value('window-preview-title-font-size'));
-                    this._builder.get_object('preview_title_size_spinbutton').set_value(this._settings.get_int('window-preview-title-font-size'));
-
-                    this._settings.set_value('window-preview-custom-icon-size', this._settings.get_default_value('window-preview-custom-icon-size'));
-                    this._builder.get_object('preview_custom_icon_size_spinbutton').set_value(this._settings.get_int('window-preview-custom-icon-size'));
 
                     this._settings.set_value('window-preview-title-font-weight', this._settings.get_default_value('window-preview-title-font-weight'));
                     this._builder.get_object('grid_preview_title_weight_combo').set_active_id(this._settings.get_string('window-preview-title-font-weight'));
-
-                    this._settings.set_value('window-preview-title-font-color', this._settings.get_default_value('window-preview-title-font-color'));
-                    let rgba = new Gdk.RGBA();
-                    rgba.parse(this._settings.get_string('window-preview-title-font-color'));
-                    this._builder.get_object('grid_preview_title_font_color_colorbutton').set_rgba(rgba);
 
                 } else {
                     // remove the settings box so it doesn't get destroyed;
