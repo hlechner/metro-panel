@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Clutter = imports.gi.Clutter;
@@ -72,7 +77,7 @@ let animationTime = 0;
 let aspectRatio = {};
 
 var PreviewMenu = Utils.defineClass({
-    Name: 'DashToPanel-PreviewMenu',
+    Name: 'MetroPanel-PreviewMenu',
     Extends: St.Widget,
     Signals: { 'open-state-changed': {} },
 
@@ -103,7 +108,7 @@ var PreviewMenu = Utils.defineClass({
         });
         this._box = new St.BoxLayout({ vertical: this.isVertical });
         this._scrollView = new St.ScrollView({
-            name: 'dashtopanelPreviewScrollview',
+            name: 'metropanelPreviewScrollview',
             hscrollbar_policy: Gtk.PolicyType.NEVER,
             vscrollbar_policy: Gtk.PolicyType.NEVER,
             enable_mouse_scrolling: true,
@@ -698,7 +703,7 @@ var PreviewMenu = Utils.defineClass({
 });
 
 var Preview = Utils.defineClass({
-    Name: 'DashToPanel-Preview',
+    Name: 'MetroPanel-Preview',
     Extends: St.Widget,
 
     _init: function(previewMenu) {
@@ -1138,7 +1143,7 @@ var Preview = Utils.defineClass({
 });
 
 var WindowCloneLayout = Utils.defineClass({
-    Name: 'DashToPanel-WindowCloneLayout',
+    Name: 'MetroPanel-WindowCloneLayout',
     Extends: Clutter.BinLayout,
 
     _init: function(frameRect, bufferRect) {

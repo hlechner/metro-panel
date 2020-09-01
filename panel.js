@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,19 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * 
- * Code to re-anchor the panel was taken from Thoma5 BottomPanel:
- * https://github.com/Thoma5/gnome-shell-extension-bottompanel
- * 
- * Pattern for moving clock based on Frippery Move Clock by R M Yorston
- * http://frippery.org/extensions/
- * 
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -89,7 +82,7 @@ function setMenuArrow(arrowIcon, side) {
 }
 
 var dtpPanel = Utils.defineClass({
-    Name: 'DashToPanel-Panel',
+    Name: 'MetroPanel-Panel',
     Extends: St.Widget,
 
     _init: function(panelManager, monitor, panelBox, isStandalone) {
@@ -280,8 +273,8 @@ var dtpPanel = Utils.defineClass({
         // Since we don't have the ID to disconnect that handler, wrap the allocate() function 
         // it calls instead. If the call didn't originate from this file, ignore it.
         panelBoxes.forEach(b => {
-            this[b].allocate = (box, flags, isFromDashToPanel) => {
-                if (isFromDashToPanel) {
+            this[b].allocate = (box, flags, isFromMetroPanel) => {
+                if (isFromMetroPanel) {
                     Utils.allocate(this[b], box, flags, true);
                 }
             }
@@ -314,7 +307,7 @@ var dtpPanel = Utils.defineClass({
 
         this._setAllocationMap();
 
-        this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
+        this.panel.actor.add_style_class_name('metropanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
 
         // Since Gnome 3.8 dragging an app without having opened the overview before cause the attemp to
         //animate a null target since some variables are not initialized when the viewSelector is created
@@ -463,7 +456,7 @@ var dtpPanel = Utils.defineClass({
         if (!this.isStandalone) {
             this.statusArea.dateMenu._clockDisplay.text = this.statusArea.dateMenu._clock.clock;
 
-            ['vertical', 'horizontal', 'dashtopanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
+            ['vertical', 'horizontal', 'metropanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
 
             if (!Main.sessionMode.isLocked) {
                 [['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0]].forEach(b => {
@@ -527,8 +520,8 @@ var dtpPanel = Utils.defineClass({
     },
 
     updateThemeStyle: function() {
-        ['vertical', 'horizontal', 'dashtopanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
-        this.panel.actor.add_style_class_name('dashtopanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
+        ['vertical', 'horizontal', 'metropanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
+        this.panel.actor.add_style_class_name('metropanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
     },
 
     getTheme: function() {
@@ -1071,7 +1064,7 @@ var dtpPanel = Utils.defineClass({
 
         // styles for theming
         Object.keys(St.Side).forEach(p => {
-            let cssName = 'dashtopanel' + p.charAt(0) + p.slice(1).toLowerCase();
+            let cssName = 'metropanel' + p.charAt(0) + p.slice(1).toLowerCase();
 
             this.panel.actor[(St.Side[p] == this.geom.position ? 'add' : 'remove') + '_style_class_name'](cssName);
         });
@@ -1453,7 +1446,7 @@ var dtpPanel = Utils.defineClass({
 });
 
 var dtpSecondaryPanel = Utils.defineClass({
-    Name: 'DashToPanel-SecondaryPanel',
+    Name: 'MetroPanel-SecondaryPanel',
     Extends: St.Widget,
 
     _init: function(params) {
@@ -1466,7 +1459,7 @@ var dtpSecondaryPanel = Utils.defineClass({
 });
 
 var dtpSecondaryAggregateMenu = Utils.defineClass({
-    Name: 'DashToPanel-SecondaryAggregateMenu',
+    Name: 'MetroPanel-SecondaryAggregateMenu',
     Extends: PanelMenu.Button,
 
     _init: function() {

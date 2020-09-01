@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,13 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Credits:
- * Ideas for recursing child actors and assigning inline styles
- * are based on code from the StatusAreaHorizontalSpacing extension
- * https://bitbucket.org/mathematicalcoffee/status-area-horizontal-spacing-gnome-shell-extension
- * mathematical.coffee@gmail.com
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -34,7 +33,7 @@ const Taskbar = Me.imports.taskbar;
 const Utils = Me.imports.utils;
 
 var dtpPanelStyle = Utils.defineClass({
-    Name: 'DashToPanel.PanelStyle',
+    Name: 'MetroPanel.PanelStyle',
 
     _init: function() {
 

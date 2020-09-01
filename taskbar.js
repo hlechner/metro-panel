@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,15 +12,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
+ */
 
 const Clutter = imports.gi.Clutter;
 const Config = imports.misc.config;
@@ -73,13 +71,13 @@ function extendDashItemContainer(dashItemContainer) {
  * - handle horizontal dash
  */
 var taskbarActor = Utils.defineClass({
-    Name: 'DashToPanel-TaskbarActor',
+    Name: 'MetroPanel-TaskbarActor',
     Extends: St.Widget,
 
     _init: function(delegate) {
         this._delegate = delegate;
         this._currentBackgroundColor = 0;
-        this.callParent('_init', { name: 'dashtopanelTaskbar',
+        this.callParent('_init', { name: 'metropanelTaskbar',
                                    layout_manager: new Clutter.BoxLayout({ orientation: Clutter.Orientation[delegate.dtpPanel.getOrientation().toUpperCase()] }),
                                    clip_to_allocation: true });
     },
@@ -154,7 +152,7 @@ var taskbarActor = Utils.defineClass({
  */
 
 var taskbar = Utils.defineClass({
-    Name: 'DashToPanel.Taskbar',
+    Name: 'MetroPanel.Taskbar',
 
     _init : function(panel) {
         this.dtpPanel = panel;
@@ -180,7 +178,7 @@ var taskbar = Utils.defineClass({
                                        y_align: Clutter.ActorAlign.START });
 
         this._container = new taskbarActor(this);
-        this._scrollView = new St.ScrollView({ name: 'dashtopanelScrollview',
+        this._scrollView = new St.ScrollView({ name: 'metropanelScrollview',
                                                hscrollbar_policy: Gtk.PolicyType.NEVER,
                                                vscrollbar_policy: Gtk.PolicyType.NEVER,
                                                enable_mouse_scrolling: true });
@@ -1220,7 +1218,7 @@ var taskbar = Utils.defineClass({
 Signals.addSignalMethods(taskbar.prototype);
 
 var DragPlaceholderItem = Utils.defineClass({
-    Name: 'DashToPanel-DragPlaceholderItem',
+    Name: 'MetroPanel-DragPlaceholderItem',
     Extends: St.Widget,
 
     _init: function(appIcon, iconSize) {

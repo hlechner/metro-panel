@@ -1,6 +1,6 @@
 /*
- * Dash-To-Panel extension for Gnome 3
- * Copyright 2016 Jason DeRose (jderose9) and Charles Gagnon (charlesg99)
+ * Metro-Panel extension for Gnome 3
+ * Copyright 2020 Henrique Lechner (hlechner)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,10 @@
  *
  */
 
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
+ */
 
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
@@ -59,8 +63,8 @@ function enable() {
     });
 
     //create a global object that can emit signals and conveniently expose functionalities to other extensions 
-    global.dashToPanel = {};
-    Signals.addSignalMethods(global.dashToPanel);
+    global.metroPanel = {};
+    Signals.addSignalMethods(global.metroPanel);
 
     _enable();
 }
@@ -135,9 +139,9 @@ function disable(reset) {
 
     if (!reset) {
         extensionSystem.disconnect(extensionChangedHandler);
-        delete global.dashToPanel;
+        delete global.metroPanel;
 
-        // Re-enable Ubuntu Dock if it was disabled by dash to panel
+        // Re-enable Ubuntu Dock if it was disabled by metro panel
         if (disabledUbuntuDock && Main.sessionMode.allowExtensions) {
             (extensionSystem._callExtensionEnable || extensionSystem.enableExtension).call(extensionSystem, UBUNTU_DOCK_UUID);
         }

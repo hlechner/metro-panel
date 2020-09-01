@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Clutter = imports.gi.Clutter;
@@ -31,7 +36,7 @@ const DARK_BG_COLOR = "#101010";
 const LIGHT_BG_COLOR = "#eeeeee";
 
 var DynamicTransparency = Utils.defineClass({
-    Name: 'DashToPanel.DynamicTransparency',
+    Name: 'MetroPanel.DynamicTransparency',
 
     _init: function(dtpPanel) {
         this._dtpPanel = dtpPanel;

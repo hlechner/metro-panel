@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,15 +12,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
+ */
 
 const Clutter = imports.gi.Clutter;
 const Gio = imports.gi.Gio;
@@ -96,7 +94,7 @@ let menuRedisplayFunc = !!AppDisplay.AppIconMenu.prototype._rebuildMenu ? '_rebu
  */
 
 var taskbarAppIcon = Utils.defineClass({
-    Name: 'DashToPanel.TaskbarAppIcon',
+    Name: 'MetroPanel.TaskbarAppIcon',
     Extends: AppDisplay.AppIcon,
     ParentConstrParams: [[0, 'app'], [2]],
 
@@ -602,7 +600,7 @@ var taskbarAppIcon = Utils.defineClass({
         this._previewMenu.close(true);
 
         this.actor.set_hover(true);
-        this._menu.actor.add_style_class_name('dashtopanelSecondaryMenu');
+        this._menu.actor.add_style_class_name('metropanelSecondaryMenu');
         this._menu.popup();
         this._menuManager.ignoreRelease();
         this.emit('sync-tooltip');
@@ -1323,7 +1321,7 @@ function getIconPadding(isVertical) {
  */
 
 var taskbarSecondaryMenu = Utils.defineClass({
-    Name: 'DashToPanel.SecondaryMenu',
+    Name: 'MetroPanel.SecondaryMenu',
     Extends: AppDisplay.AppIconMenu,
     ParentConstrParams: [[0]],
 
@@ -1529,7 +1527,7 @@ function ItemShowLabel()  {
  *
  */
 var ShowAppsIconWrapper = Utils.defineClass({
-    Name: 'DashToPanel.ShowAppsIconWrapper',
+    Name: 'MetroPanel.ShowAppsIconWrapper',
 
     _init: function(dtpPanel) {
         this.realShowAppsIcon = new Dash.ShowAppsIcon();
@@ -1705,7 +1703,7 @@ Signals.addSignalMethods(ShowAppsIconWrapper.prototype);
  * A menu for the showAppsIcon
  */
 var MyShowAppsIconMenu = Utils.defineClass({
-    Name: 'DashToPanel.ShowAppsIconMenu',
+    Name: 'MetroPanel.ShowAppsIconMenu',
     Extends: taskbarSecondaryMenu,
     ParentConstrParams: [[0], [1]],
 
@@ -1812,7 +1810,7 @@ var MyShowAppsIconMenu = Utils.defineClass({
             Me.settings.set_boolean('taskbar-locked', !Me.settings.get_boolean('taskbar-locked'));
         });
 
-        let settingsMenuItem = this._appendMenuItem(_('Dash to Panel Settings'));
+        let settingsMenuItem = this._appendMenuItem(_('Metro Panel Settings'));
         settingsMenuItem.connect('activate', function () {
             let command = ["gnome-shell-extension-prefs"];
 

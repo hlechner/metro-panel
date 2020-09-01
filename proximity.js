@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Lang = imports.lang;
@@ -37,7 +42,7 @@ var Mode = {
 };
 
 var ProximityWatch = Utils.defineClass({
-    Name: 'DashToPanel.ProximityWatch',
+    Name: 'MetroPanel.ProximityWatch',
 
     _init: function(actor, mode, xThreshold, yThreshold, handler) {
         this.actor = actor;
@@ -74,7 +79,7 @@ var ProximityWatch = Utils.defineClass({
 });
 
 var ProximityManager = Utils.defineClass({
-    Name: 'DashToPanel.ProximityManager',
+    Name: 'MetroPanel.ProximityManager',
 
     _init: function() {
         this._counter = 1;

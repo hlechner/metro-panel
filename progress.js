@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,11 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -30,7 +31,7 @@ const Utils = Me.imports.utils;
 
 
 var ProgressManager = Utils.defineClass({
-    Name: 'DashToPanel.ProgressManager',
+    Name: 'MetroPanel.ProgressManager',
 
     _init: function() {
 
@@ -167,7 +168,7 @@ var ProgressManager = Utils.defineClass({
 Signals.addSignalMethods(ProgressManager.prototype);
 
 var AppProgress = Utils.defineClass({
-    Name: 'DashToPanel.AppProgress',
+    Name: 'MetroPanel.AppProgress',
 
     _init: function(dbusName, appId, properties) {
         this._dbusName = dbusName;
@@ -269,7 +270,7 @@ Signals.addSignalMethods(AppProgress.prototype);
 
 
 var ProgressIndicator = Utils.defineClass({
-    Name: 'DashToPanel.ProgressIndicator',
+    Name: 'MetroPanel.ProgressIndicator',
 
     _init: function(source, progressManager) {
         this._source = source;

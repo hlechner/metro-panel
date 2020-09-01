@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,13 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Clutter = imports.gi.Clutter;
@@ -50,7 +49,7 @@ var defineClass = function (classDef) {
     let parentProto = classDef.Extends ? classDef.Extends.prototype : null;
 
     if (Config.PACKAGE_VERSION < '3.31.9') {
-        if (parentProto && (classDef.Extends.name || classDef.Extends.toString()).indexOf('DashToPanel.') < 0) {
+        if (parentProto && (classDef.Extends.name || classDef.Extends.toString()).indexOf('MetroPanel.') < 0) {
             classDef.callParent = function() {
                 let args = Array.prototype.slice.call(arguments);
                 let func = args.shift();
@@ -114,7 +113,7 @@ var defineClass = function (classDef) {
 // simplify global signals and function injections handling
 // abstract class
 var BasicHandler = defineClass({
-    Name: 'DashToPanel.BasicHandler',
+    Name: 'MetroPanel.BasicHandler',
 
     _init: function(){
         this._storage = new Object();
@@ -175,7 +174,7 @@ var BasicHandler = defineClass({
 
 // Manage global signals
 var GlobalSignalsHandler = defineClass({
-    Name: 'DashToPanel.GlobalSignalsHandler',
+    Name: 'MetroPanel.GlobalSignalsHandler',
     Extends: BasicHandler,
 
     _create: function(item) {
@@ -205,7 +204,7 @@ var GlobalSignalsHandler = defineClass({
  * and restored
  */
 var InjectionsHandler = defineClass({
-    Name: 'DashToPanel.InjectionsHandler',
+    Name: 'MetroPanel.InjectionsHandler',
     Extends: BasicHandler,
 
     _create: function(item) {
@@ -230,7 +229,7 @@ var InjectionsHandler = defineClass({
  * Manage timeouts: the added timeouts have their id reset on completion
  */
 var TimeoutsHandler = defineClass({
-    Name: 'DashToPanel.TimeoutsHandler',
+    Name: 'MetroPanel.TimeoutsHandler',
     Extends: BasicHandler,
 
     _create: function(item) {
@@ -594,7 +593,7 @@ var getPanelGhost = function() {
 
 var notify = function(text, iconName, action, isTransient) {
     let source = new MessageTray.SystemNotificationSource();
-    let notification = new MessageTray.Notification(source, 'Dash to Panel', text);
+    let notification = new MessageTray.Notification(source, 'Metro Panel', text);
     let notifyFunc = source.showNotification || source.notify;
 
     if (iconName) {
@@ -792,7 +791,7 @@ const BATCH_SIZE_TO_DELETE = 50;
 const DOMINANT_COLOR_ICON_SIZE = 64;
 
 var DominantColorExtractor = defineClass({
-    Name: 'DashToPanel.DominantColorExtractor',
+    Name: 'MetroPanel.DominantColorExtractor',
 
     _init: function(app){
         this._app = app;

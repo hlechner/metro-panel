@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,21 +12,20 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-.dashtopanelMainPanel.dark .panel-button StLabel{
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
+ */
+
+.metropanelMainPanel.dark .panel-button StLabel{
     font-size: 10pt;
     font-family: "Segoe UI Semibold";
 }
 
-.dashtopanelMainPanel.light .panel-button StLabel{
+.metropanelMainPanel.light .panel-button StLabel{
     font-size: 9pt;
     font-family: "Segoe UI Semilight";
 }
@@ -47,7 +46,7 @@
     background-color: #e93d4b;
 }
 
-#dashtopanelTaskbar .dash-item-container > StWidget {
+#metropanelTaskbar .dash-item-container > StWidget {
 	margin: 0;
 	padding: 0; 
 }
@@ -56,111 +55,111 @@
     margin-right: 3px;
 }
 
-.dashtopanelMainPanel.dark .panel-button {
+.metropanelMainPanel.dark .panel-button {
     color: white;
 }
 
-.dashtopanelMainPanel.light .panel-button {
+.metropanelMainPanel.light .panel-button {
     color: black;
 }
 
-#dashtopanelScrollview .app-well-app .overview-icon,
-.dashtopanelMainPanel .show-apps .overview-icon {
+#metropanelScrollview .app-well-app .overview-icon,
+.metropanelMainPanel .show-apps .overview-icon {
 	background: none;
 	border: none;
 	margin: 0;
 	padding: 0;
 }
 
-#dashtopanelScrollview .app-well-app .overview-label {
+#metropanelScrollview .app-well-app .overview-label {
 	/* must match TITLE_RIGHT_PADDING in apppicons.js */
 	padding-right: 8px;
 }
 
-#dashtopanelScrollview .app-well-app:hover .overview-icon,
-#dashtopanelScrollview .app-well-app:focus .overview-icon {
+#metropanelScrollview .app-well-app:hover .overview-icon,
+#metropanelScrollview .app-well-app:focus .overview-icon {
 	background: none;
 }
 
-.dashtopanelMainPanel .show-apps:checked {
+.metropanelMainPanel .show-apps:checked {
 	background-color: rgba(255, 255, 255, 0.053);
 }
 
-.dashtopanelMainPanel.dark .panel-button:hover,
-.dashtopanelMainPanel.dark .show-apps:hover,
-.dashtopanelMainPanel.dark .app-well-app:hover .dtp-container,
-.dashtopanelMainPanel.dark .app-well-app:focus .dtp-container {
+.metropanelMainPanel.dark .panel-button:hover,
+.metropanelMainPanel.dark .show-apps:hover,
+.metropanelMainPanel.dark .app-well-app:hover .dtp-container,
+.metropanelMainPanel.dark .app-well-app:focus .dtp-container {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
-.dashtopanelMainPanel.light .panel-button:hover,
-.dashtopanelMainPanel.light .show-apps:hover,
-.dashtopanelMainPanel.light .app-well-app:hover .dtp-container,
-.dashtopanelMainPanel.light .app-well-app:focus .dtp-container {
+.metropanelMainPanel.light .panel-button:hover,
+.metropanelMainPanel.light .show-apps:hover,
+.metropanelMainPanel.light .app-well-app:hover .dtp-container,
+.metropanelMainPanel.light .app-well-app:focus .dtp-container {
 	background-color: rgba(255, 255, 255, 0.4);
 }
 
-.dashtopanelMainPanel.light .app-well-app.focused .dtp-container {
+.metropanelMainPanel.light .app-well-app.focused .dtp-container {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#dashtopanelScrollview .app-well-app:active .dtp-container {
+#metropanelScrollview .app-well-app:active .dtp-container {
 	background-color: rgba(238, 238, 236, 0.18);
 }
 
-#dashtopanelScrollview .app-well-app .favorite {
+#metropanelScrollview .app-well-app .favorite {
 	background-color: rgba(80, 150, 255, 0.4);
 }
 
-#dashtopanelScrollview .app-well-app-running-dot {
+#metropanelScrollview .app-well-app-running-dot {
 	margin-bottom: 0;
 }
 
-#dashtopanelTaskbar .scrollview-fade {
+#metropanelTaskbar .scrollview-fade {
     background-gradient-end: rgba(0, 0, 0, 0);
 }
 
-.dashtopanelSecondaryMenu {
+.metropanelSecondaryMenu {
 	max-width: 400px;
 }
 
-.dashtopanelMainPanel.vertical .panel-button {
+.metropanelMainPanel.vertical .panel-button {
 	text-align: center; 
 }
 
-.dashtopanelMainPanel.vertical .panel-button.vertical *,
-.dashtopanelMainPanel.vertical .panel-button.clock-display * {
+.metropanelMainPanel.vertical .panel-button.vertical *,
+.metropanelMainPanel.vertical .panel-button.clock-display * {
 	padding: 0;
 	margin: 0; 
 }
 
-.dashtopanelMainPanel.vertical .panel-button > *,
-.dashtopanelMainPanel.vertical .panel-button.vertical > *,
-.dashtopanelMainPanel.vertical .panel-button.clock-display > * {
+.metropanelMainPanel.vertical .panel-button > *,
+.metropanelMainPanel.vertical .panel-button.vertical > *,
+.metropanelMainPanel.vertical .panel-button.clock-display > * {
 	padding: 8px 0; 
 }
 
-.dashtopanelMainPanel.vertical .panel-button.clock-display {
+.metropanelMainPanel.vertical .panel-button.clock-display {
 	margin: 0 0 11px 0;
 }
 
-#dashtopanelThumbnailList {
+#metropanelThumbnailList {
 	spacing: 0em;
 	padding: 0 1em;
 }
 
-#dashtopanelThumbnailList .popup-menu-item {
+#metropanelThumbnailList .popup-menu-item {
 	padding: 0;
 	border-radius: 5px;
 	spacing: 0;
 }
 
-#dashtopanelThumbnailList .window-box {
+#metropanelThumbnailList .window-box {
 	padding: 0;
 	spacing: 0;
 }
 
-#dashtopanelThumbnailList .preview-window-title {
+#metropanelThumbnailList .preview-window-title {
 	padding-top: 1em;
 }
 
@@ -180,34 +179,34 @@
     margin-top: 8px;
 }
 
-.dashtopanelMainPanel.dark .showdesktop-button:hover,
-.dashtopanelMainPanel.dark .showdesktop-button-vertical:hover {
+.metropanelMainPanel.dark .showdesktop-button:hover,
+.metropanelMainPanel.dark .showdesktop-button-vertical:hover {
     background-color: rgba(255, 255, 255, .1);
 }
 
-.dashtopanelMainPanel.light .showdesktop-button:hover,
-.dashtopanelMainPanel.light .showdesktop-button-vertical:hover {
+.metropanelMainPanel.light .showdesktop-button:hover,
+.metropanelMainPanel.light .showdesktop-button-vertical:hover {
 	background-color: rgba(255, 255, 255, .4);
 }
 
 .panel-corner.hidden:active, .panel-corner.hidden:overview, .panel-corner.hidden:focus {
     -panel-corner-border-color: rgba(0, 0, 0, .001);
 }
-#dashtopanelScrollview .badge {
+#metropanelScrollview .badge {
 	color: rgba(255, 255, 255, 1);
 	font-weight: bold;
 	text-align: center;
 }
 
-#dashtopanelScrollview .number-overlay {
+#metropanelScrollview .number-overlay {
 	background-color: rgba(0,0,0,0.8);
 }
 
-#dashtopanelScrollview .notification-badge {
+#metropanelScrollview .notification-badge {
     background-color: rgba(255,0,0,0.8);
 }
 
-#dashtopanelScrollview .progress-bar {
+#metropanelScrollview .progress-bar {
     /* Customization of the progress bar style, e.g.:
       -progress-bar-background: rgba(0.8, 0.8, 0.8, 1);
       -progress-bar-border: rgba(0.9, 0.9, 0.9, 1);

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,19 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * and code from the Taskbar extension by Zorin OS
- * 
- * Code to re-anchor the panel was taken from Thoma5 BottomPanel:
- * https://github.com/Thoma5/gnome-shell-extension-bottompanel
- * 
- * Pattern for moving clock based on Frippery Move Clock by R M Yorston
- * http://frippery.org/extensions/
- * 
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -56,7 +49,7 @@ const WM = imports.ui.windowManager;
 const WorkspacesView = imports.ui.workspacesView;
 
 var dtpPanelManager = Utils.defineClass({
-    Name: 'DashToPanel.PanelManager',
+    Name: 'MetroPanel.PanelManager',
 
     _init: function() {
         this.overview = new Overview.dtpOverview();
@@ -91,8 +84,8 @@ var dtpPanelManager = Utils.defineClass({
             });
         }
 
-        global.dashToPanel.panels = this.allPanels;
-        global.dashToPanel.emit('panels-created');
+        global.metroPanel.panels = this.allPanels;
+        global.metroPanel.emit('panels-created');
 
         this.allPanels.forEach(p => {
             let panelPosition = p.getPosition();
@@ -458,7 +451,7 @@ var dtpPanelManager = Utils.defineClass({
     _getBoxPointerPreferredHeight: function(boxPointer, alloc, monitor) {
         if (boxPointer._dtpInPanel && boxPointer.sourceActor && Me.settings.get_boolean('intellihide')) {
             monitor = monitor || Main.layoutManager.findMonitorForActor(boxPointer.sourceActor);
-            let panel = Utils.find(global.dashToPanel.panels, p => p.monitor == monitor);
+            let panel = Utils.find(global.metroPanel.panels, p => p.monitor == monitor);
             let excess = alloc.natural_size + panel.dtpSize + 10 - monitor.height; // 10 is arbitrary
 
             if (excess > 0) {
@@ -693,7 +686,7 @@ function newUpdateHotCorners() {
 
     // build new hot corners
     for (let i = 0; i < this.monitors.length; i++) {
-        let panel = Utils.find(global.dashToPanel.panels, p => p.monitor.index == i);
+        let panel = Utils.find(global.metroPanel.panels, p => p.monitor.index == i);
         let panelPosition = panel ? panel.getPosition() : St.Side.BOTTOM;
         let panelTopLeft = panelPosition == St.Side.TOP || panelPosition == St.Side.LEFT;
         let monitor = this.monitors[i];
@@ -822,7 +815,7 @@ function newUpdatePanelBarrier(panel) {
 }
 
 function _newLookingGlassResize() {
-    let primaryMonitorPanel = Utils.find(global.dashToPanel.panels, p => p.monitor == Main.layoutManager.primaryMonitor);
+    let primaryMonitorPanel = Utils.find(global.metroPanel.panels, p => p.monitor == Main.layoutManager.primaryMonitor);
     let topOffset = primaryMonitorPanel.getPosition() == St.Side.TOP ? primaryMonitorPanel.dtpSize + 8 : 32;
 
     this._oldResize();

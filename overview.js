@@ -1,5 +1,5 @@
 /*
- * This file is part of the Dash-To-Panel extension for Gnome 3
+ * This file is part of the Metro-Panel extension for Gnome 3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,12 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Credits:
- * This file is based on code from the Dash to Dock extension by micheleg
- * 
- * Some code was also adapted from the upstream Gnome Shell source code.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This code is originally forked from dash-to-panel extension:
+ * <https://github.com/home-sweet-gnome/dash-to-panel>.
  */
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -43,7 +43,7 @@ const GS_HOTKEYS_KEY = 'switch-to-application-';
 const T1 = 'swipeEndTimeout';
 
 var dtpOverview = Utils.defineClass({
-    Name: 'DashToPanel.Overview',
+    Name: 'MetroPanel.Overview',
 
     _init: function() {
         this._numHotkeys = 10;
