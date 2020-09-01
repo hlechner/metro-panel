@@ -1847,7 +1847,7 @@ const Settings = new Lang.Class({
             try {
                 acceptHandler(dialog.get_filename());
             } catch(e) {
-                log('error from dash-to-panel filechooser: ' + e);
+                log('error from metro-panel filechooser: ' + e);
             }
         }
 

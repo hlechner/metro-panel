@@ -48,7 +48,7 @@ mergepo: potfile
 		msgmerge -U $$l ./po/metro-panel.pot; \
 	done;
 
-./po/dash-to-panel.pot: $(TOLOCALIZE) Settings.ui
+./po/metro-panel.pot: $(TOLOCALIZE) Settings.ui
 	mkdir -p po
 	xgettext -k_ -kN_ -o po/metro-panel.pot --package-name "Metro Panel" $(TOLOCALIZE)
 	intltool-extract --type=gettext/glade Settings.ui

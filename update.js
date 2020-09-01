@@ -85,7 +85,7 @@ function notify(msg, action) {
 }
 
 //!start-update
-apiUrl = 'https://api.github.com/repos/home-sweet-gnome/dash-to-panel/';
+apiUrl = 'https://api.github.com/repos/hlechner/metro-panel/';
 const tagsApiUrl = apiUrl + 'tags';
 const releasesApiUrl = apiUrl + 'releases';
 
