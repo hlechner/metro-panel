@@ -1150,5 +1150,10 @@
       <summary>New clock format</summary>
       <description>It's define the new clock format on panel.</description>
     </key>
+    <key type="b" name="arc-menu-theme">
+      <default>true</default>
+      <summary>If true it changes arc menu apparence while change theme</summary>
+      <description>If true it will change the arc menu apparence while change theme.</description>
+    </key>
   </schema>
 </schemalist>

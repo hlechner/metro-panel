@@ -50,6 +50,7 @@ const DateMenu = imports.ui.dateMenu;
 const Volume = imports.ui.status.volume;
 const Progress = Me.imports.progress;
 const clockFormatter = Me.imports.clockFormat;
+const Extensions = Me.imports.externalExtensions;
 
 const Intellihide = Me.imports.intellihide;
 const Transparency = Me.imports.transparency;
@@ -522,6 +523,10 @@ var dtpPanel = Utils.defineClass({
     updateThemeStyle: function() {
         ['vertical', 'horizontal', 'metropanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
         this.panel.actor.add_style_class_name('metropanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
+
+        if (Me.settings.get_boolean('arc-menu-theme')) {
+            Extensions.arcMenu();
+        }
     },
 
     getTheme: function() {

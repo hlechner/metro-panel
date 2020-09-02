@@ -860,6 +860,88 @@
       </packing>
     </child>
   </object>
+  <object class="GtkBox" id="box_theme_options">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_start">12</property>
+    <property name="margin_end">12</property>
+    <property name="margin_top">12</property>
+    <property name="margin_bottom">12</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkGrid" id="grid_theme">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="column_spacing">50</property>
+        <child>
+          <object class="GtkSwitch" id="arc_menu_switch">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="halign">end</property>
+            <property name="hexpand">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="arc_menu_label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Change </property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="arc_menu_label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">[Arc Menu extension] </property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="arc_menu_label3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">apparence while change theme</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+  </object>
   <object class="GtkAdjustment" id="dot_border_width_adjustment">
     <property name="upper">10</property>
     <property name="step_increment">1</property>
@@ -5218,17 +5300,54 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="panel_style_combo">
-                            <property name="width_request">120</property>
+                          <object class="GtkBox" id="panel_style_box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>
-                            <property name="valign">center</property>
                             <property name="hexpand">True</property>
-                            <items>
-                              <item id="DARK" translatable="yes">Dark</item>
-                              <item id="LIGHT" translatable="yes">Light</item>
-                            </items>
+                            <child>
+                              <object class="GtkButton" id="panel_style_options_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="valign">center</property>
+                                <property name="margin_end">8</property>
+                                <child>
+                                  <object class="GtkImage" id="dot_style_image1">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="icon_name">emblem-system-symbolic</property>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="circular"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="panel_style_combo">
+                                <property name="width_request">120</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">end</property>
+                                <property name="valign">center</property>
+                                <property name="hexpand">True</property>
+                                <items>
+                                  <item id="DARK" translatable="yes">Dark</item>
+                                  <item id="LIGHT" translatable="yes">Light</item>
+                                </items>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>

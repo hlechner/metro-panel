@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema path="/org/gnome/shell/extensions/arc-menu/" id="org.gnome.shell.extensions.arc-menu">
+    <key type="s" name="menu-button-color">
+      <default>'rgb(255,255,255)'</default>
+      <summary>Color for the menu button icon</summary>
+      <description>Color for the menu button icon.</description>
+    </key>
+    <key type="s" name="menu-button-hover-color">
+      <default>'rgb(214,214,214)'</default>
+      <summary>Hover color for the menu button icon</summary>
+      <description>Hover color for the menu button icon.</description>
+    </key>
+    <key type="s" name="menu-button-active-color">
+      <default>'rgb(255,255,255)'</default>
+      <summary>Active color for the menu button icon</summary>
+      <description>Active color for the menu button icon.</description>
+    </key>
+    <key type="s" name="menu-button-hover-backgroundcolor">
+      <default>'rgba(238,238,236,0.1)'</default>
+      <summary>Hover background color for the menu button icon</summary>
+      <description>Hover background color for the menu button icon.</description>
+    </key>
+    <key type="s" name="menu-button-active-backgroundcolor">
+      <default>'rgba(238,238,236,0.18)'</default>
+      <summary>Active background color for the menu button icon</summary>
+      <description>Active background color for the menu button icon.</description>
+    </key>
+    <key type="b" name="reload-theme">
+      <default>false</default>
+      <summary>Used to reload theme</summary>
+      <description>Used to reload theme.</description>
+    </key>
+  </schema>
+</schemalist>
