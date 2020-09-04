@@ -38,8 +38,44 @@ function arcMenu() {
     arcMenu.set_string('menu-button-hover-backgroundcolor', 'rgba(238,238,236,0.11)');
     arcMenu.set_string('menu-button-active-backgroundcolor', 'rgba(238,238,236,0.22)');
 
-    // set to reload only if the extension is enabled
+    // set to reload only if the extension is running
     if (Main.extensionManager.lookup("arc-menu@linxgem33.com")) {
         arcMenu.set_boolean('reload-theme', 'true');
     }
+}
+
+// Changes: GTK theme, Icon theme, Gnome-shell theme
+function changeThemes() {
+    let isDark = Me.settings.get_string('panel-style') == 'DARK';
+
+    let gtkAndIcons = Convenience.getSettings('org.gnome.desktop.interface');
+    let shellTheme = Convenience.getSettings('org.gnome.shell.extensions.user-theme');
+
+    let gtkThemeName = _checkTheme(gtkAndIcons.get_string('gtk-theme'), isDark, 'gtk');
+    if (gtkThemeName) gtkAndIcons.set_string('gtk-theme', gtkThemeName);
+
+    let iconsThemeName = _checkTheme(gtkAndIcons.get_string('icon-theme'), isDark, 'icon');
+    if (iconsThemeName) gtkAndIcons.set_string('icon-theme', iconThemeName);
+
+    let shellThemeName = _checkTheme(shellTheme.get_string('name'), isDark, 'shell');
+    if (shellThemeName) shellTheme.set_string('name', shellThemeName);
+}
+
+function _checkTheme(name, isDark, type){
+    let themename = {Adwaita: {dark: 'Adwaita-dark', light: 'Adwaita'},
+                     Yaru: {dark: 'Yaru-dark', light: 'Yaru'}};
+    let themetype = {Adwaita: {gtk: true, icon: false, shell: false},
+                     Yaru: {gtk: true, icon: false, shell: true}};
+
+    let regEx1 = /^(Adwaita|Yaru)(-dark|-light)?$/g;
+    let regEx2 = /^(Adwaita|Yaru)/g;
+
+    let newName = name.match(regEx1) ? name.match(regEx2) : '';
+
+    if (newName && themetype[newName][type]) {
+        newName = themename[newName][isDark ? 'dark' : 'light'];
+        newName = (newName == 'Yaru' && type == 'gtk') ? 'Yaru-light' : newName;
+    }
+
+    return newName;
 }

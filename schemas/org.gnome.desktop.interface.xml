@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema path="/org/gnome/desktop/interface/" id="org.gnome.desktop.interface">
+    <key type="s" name="gtk-theme">
+      <default>'Adwaita'</default>
+      <summary>Gtk+ Theme</summary>
+      <description>Basename of the default theme used by gtk+.</description>
+    </key>
+    <key type="s" name="icon-theme">
+      <default>'Adwaita'</default>
+      <summary>Icon Theme</summary>
+      <description>Icon theme to use for the panel, nautilus etc.</description>
+    </key>
+  </schema>
+</schemalist>

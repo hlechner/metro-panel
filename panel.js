@@ -50,7 +50,8 @@ const DateMenu = imports.ui.dateMenu;
 const Volume = imports.ui.status.volume;
 const Progress = Me.imports.progress;
 const clockFormatter = Me.imports.clockFormat;
-const Extensions = Me.imports.externalExtensions;
+const Externals = Me.imports.externals;
+const Util = imports.misc.util;
 
 const Intellihide = Me.imports.intellihide;
 const Transparency = Me.imports.transparency;
@@ -525,7 +526,11 @@ var dtpPanel = Utils.defineClass({
         this.panel.actor.add_style_class_name('metropanelMainPanel ' + this.getOrientation() + ' ' + this.getTheme());
 
         if (Me.settings.get_boolean('arc-menu-theme')) {
-            Extensions.arcMenu();
+            Externals.arcMenu();
+        }
+
+        if (Me.settings.get_boolean('change-themes')) {
+            Externals.changeThemes();
         }
     },
 

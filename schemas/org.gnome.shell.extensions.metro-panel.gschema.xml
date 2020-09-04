@@ -1152,8 +1152,13 @@
     </key>
     <key type="b" name="arc-menu-theme">
       <default>true</default>
-      <summary>If true it changes arc menu apparence while change theme</summary>
-      <description>If true it will change the arc menu apparence while change theme.</description>
+      <summary>It changes arc menu apparence while change theme</summary>
+      <description>It will change the arc menu apparence while change theme.</description>
+    </key>
+    <key type="b" name="change-themes">
+      <default>true</default>
+      <summary>Changes gtk, icon, shell while change theme</summary>
+      <description>It will change the gtk, icon, shell while change theme.</description>
     </key>
   </schema>
 </schemalist>
