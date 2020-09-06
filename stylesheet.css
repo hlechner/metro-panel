@@ -213,8 +213,19 @@
     */
 }
 
+#panel .panel-button:active, #panel .panel-button:overview, #panel .panel-button:focus, #panel .panel-button:checked {
+    box-shadow: none;
+}
+
+#panel .panel-button.clock-display:active .clock, #panel .panel-button.clock-display:overview .clock, #panel .panel-button.clock-display:focus .clock, #panel .panel-button.clock-display:checked .clock {
+    box-shadow: none;
+}
 
 /*Extension: Notification Center*/
+.notification-center-panel-button:active {
+    background-color: rgba(255, 255, 255, 0.053);
+}
+
 /*.notification-center-panel-button .panel-status-menu-box {
     margin: 4px 8px;
 }*/
