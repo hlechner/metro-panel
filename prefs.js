@@ -290,15 +290,18 @@ const Settings = new Lang.Class({
         this._maybeDisableTopPosition();
         this._setPositionRadios(panelPosition);
 
-        labels[Pos.SHOW_APPS_BTN] = _('Show Applications button');
-        labels[Pos.ACTIVITIES_BTN] = _('Activities button');
-        labels[Pos.TASKBAR] = _('Taskbar');
-        labels[Pos.DATE_MENU] = _('Clock');
-        labels[Pos.SYSTEM_MENU] = _('System menu');
-        labels[Pos.LEFT_BOX] = _('Left box');
-        labels[Pos.CENTER_BOX] = _('Center box');
-        labels[Pos.RIGHT_BOX] = _('Right box');
-        labels[Pos.DESKTOP_BTN] = _('Desktop button');
+
+        labels[Pos.ARC_MENU] = {label: _('Arc Menu'), extension: true};
+        labels[Pos.SHOW_APPS_BTN] = {label: _('Show Applications button'), extension: false};
+        labels[Pos.ACTIVITIES_BTN] = {label: _('Activities button'), extension: false};
+        labels[Pos.LEFT_BOX] = {label: _('Left box'), extension: false};
+        labels[Pos.TASKBAR] = {label: _('Taskbar'), extension: false};
+        labels[Pos.CENTER_BOX] = {label: _('Center box'), extension: false};
+        labels[Pos.RIGHT_BOX] = {label: _('Right box'), extension: false};
+        labels[Pos.SYSTEM_MENU] = {label: _('System menu'), extension: false};
+        labels[Pos.DATE_MENU] = {label: _('Clock'), extension: false};
+        labels[Pos.NOTIFICATION] = {label: _('Notification Center'), extension: true};
+        labels[Pos.DESKTOP_BTN] = {label: _('Desktop button'), extension: false};
 
         panelElementPositions.forEach(el => {
             let row = new Gtk.ListBoxRow();
@@ -338,7 +341,12 @@ const Settings = new Lang.Class({
             upDownGrid.add(downBtn);
 
             grid.add(upDownGrid);
-            grid.add(new Gtk.Label({ label: labels[el.element], xalign: 0, hexpand: true }));
+
+            let isExtension = labels[el.element]["extension"];
+            let customLabel = labels[el.element]["label"];
+            customLabel= isExtension ? "<span foreground='#ff7000'>" + customLabel + "</span>" : customLabel;
+
+            grid.add(new Gtk.Label({ label: customLabel, xalign: 0, hexpand: true, use_markup: true }));
 
             if (Pos.optionDialogFunctions[el.element]) {
                 let cogImg = new Gtk.Image({ icon_name: 'emblem-system-symbolic' });

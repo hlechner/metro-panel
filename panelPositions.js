@@ -29,6 +29,8 @@ var LEFT_BOX = 'leftBox';
 var CENTER_BOX = 'centerBox';
 var RIGHT_BOX = 'rightBox';
 var DESKTOP_BTN = 'desktopButton';
+var NOTIFICATION = 'notificationCenter';
+var ARC_MENU = 'arc-menu';
 
 var STACKED_TL = 'stackedTL';
 var STACKED_BR = 'stackedBR';
@@ -41,14 +43,16 @@ var LEFT = 'LEFT';
 var RIGHT = 'RIGHT';
 
 var defaults = [
-    { element: LEFT_BOX,        visible: true,     position: STACKED_TL },
+    { element: ARC_MENU,        visible: true,     position: STACKED_TL },
     { element: SHOW_APPS_BTN,   visible: true,     position: STACKED_TL },
     { element: ACTIVITIES_BTN,  visible: false,    position: STACKED_TL },
+    { element: LEFT_BOX,        visible: true,     position: STACKED_TL },
     { element: TASKBAR,         visible: true,     position: STACKED_TL },
-    { element: RIGHT_BOX,       visible: true,     position: STACKED_BR },
-    { element: DATE_MENU,       visible: true,     position: STACKED_BR },
-    { element: SYSTEM_MENU,     visible: false,    position: STACKED_BR },
     { element: CENTER_BOX,      visible: true,     position: STACKED_BR },
+    { element: RIGHT_BOX,       visible: true,     position: STACKED_BR },
+    { element: SYSTEM_MENU,     visible: false,    position: STACKED_BR },
+    { element: DATE_MENU,       visible: true,     position: STACKED_BR },
+    { element: NOTIFICATION,    visible: true,     position: STACKED_BR },
     { element: DESKTOP_BTN,     visible: true,     position: STACKED_BR },
 ];
 

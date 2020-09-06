@@ -138,9 +138,11 @@ var dtpPanel = Utils.defineClass({
 
             this.menuManager = this.panel.menuManager = new PopupMenu.PopupMenuManager(this.panel);
 
+            this._setPanelMenu('arc-menu', PanelMenu.Button, this.panel.actor);
             this._setPanelMenu('aggregateMenu', dtpSecondaryAggregateMenu, this.panel.actor);
             this._setPanelMenu('dateMenu', DateMenu.DateMenuButton, this.panel.actor);
             this._setPanelMenu('activities', Panel.ActivitiesButton, this.panel.actor);
+            this._setPanelMenu('NotificationCenter', PanelMenu.Button, this.panel.actor);
 
             if (this.statusArea.aggregateMenu) {
                 setMenuArrow(this.statusArea.aggregateMenu._indicators.get_last_child(), position);
@@ -158,13 +160,15 @@ var dtpPanel = Utils.defineClass({
 
             panelBoxes.forEach(p => this[p] = Main.panel[p]);
 
-            ['activities', 'aggregateMenu', 'dateMenu'].forEach(b => {
-                let container = this.statusArea[b].container;
-                let parent = container.get_parent();
+            ['arc-menu', 'activities', 'aggregateMenu', 'dateMenu', 'NotificationCenter'].forEach(b => {
+                if (this.statusArea[b]) {
+                    let container = this.statusArea[b].container;
+                    let parent = container.get_parent();
 
-                container._dtpOriginalParent = parent;
-                parent ? parent.remove_child(container) : null;
-                this.panel.actor.add_child(container);
+                    container._dtpOriginalParent = parent;
+                    parent ? parent.remove_child(container) : null;
+                    this.panel.actor.add_child(container);
+                }
             });
         }
 
@@ -461,7 +465,7 @@ var dtpPanel = Utils.defineClass({
             ['vertical', 'horizontal', 'metropanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
 
             if (!Main.sessionMode.isLocked) {
-                [['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0]].forEach(b => {
+                [['arc-menu', 0], ['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0], ['NotificationCenter', 0]].forEach(b => {
                     let container = this.statusArea[b[0]].container;
                     let originalParent = container._dtpOriginalParent;
 
@@ -501,9 +505,11 @@ var dtpPanel = Utils.defineClass({
 
             this.panel.actor._delegate = this.panel;
         } else {
+            this._removePanelMenu('arc-menu');
             this._removePanelMenu('dateMenu');
             this._removePanelMenu('aggregateMenu');
             this._removePanelMenu('activities');
+            this._removePanelMenu('NotificationCenter');
         }
 
         Main.ctrlAltTabManager.removeGroup(this);
@@ -603,7 +609,7 @@ var dtpPanel = Utils.defineClass({
         panelPositions.forEach(pos => {
             let allocationMap = this.allocationMap[pos.element];
 
-            if (allocationMap.actor) {
+            if (allocationMap && allocationMap.actor) {
                 allocationMap.actor.visible = pos.visible;
 
                 if (!pos.visible) {
@@ -882,14 +888,18 @@ var dtpPanel = Utils.defineClass({
             box: new Clutter.ActorBox() 
         };
 
+        if (this.statusArea["arc-menu"])
+            setMap(Pos.ARC_MENU, this.statusArea["arc-menu"].container);
         setMap(Pos.SHOW_APPS_BTN, this.showAppsIconWrapper.realShowAppsIcon);
         setMap(Pos.ACTIVITIES_BTN, this.statusArea.activities ? this.statusArea.activities.container : 0);
         setMap(Pos.LEFT_BOX, this._leftBox, 1);
         setMap(Pos.TASKBAR, this.taskbar.actor);
         setMap(Pos.CENTER_BOX, this._centerBox, 1);
-        setMap(Pos.DATE_MENU, this.statusArea.dateMenu.container);
-        setMap(Pos.SYSTEM_MENU, this.statusArea.aggregateMenu.container);
         setMap(Pos.RIGHT_BOX, this._rightBox, 1);
+        setMap(Pos.SYSTEM_MENU, this.statusArea.aggregateMenu.container);
+        setMap(Pos.DATE_MENU, this.statusArea.dateMenu.container);
+        if (this.statusArea["NotificationCenter"])
+            setMap(Pos.NOTIFICATION, this.statusArea["NotificationCenter"].container);
         setMap(Pos.DESKTOP_BTN, this._showDesktopButton);
     },
 
