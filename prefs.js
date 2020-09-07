@@ -302,6 +302,8 @@ const Settings = new Lang.Class({
         labels[Pos.DATE_MENU] = {label: _('Clock'), extension: false};
         labels[Pos.NOTIFICATION] = {label: _('Notification Center'), extension: true};
         labels[Pos.DESKTOP_BTN] = {label: _('Desktop button'), extension: false};
+        labels[Pos.NETWORK_IND] = {label: _('Network Indicator'), extension: true};
+        labels[Pos.VOLUME_IND] = {label: _('Volume Indicator'), extension: true};
 
         panelElementPositions.forEach(el => {
             let row = new Gtk.ListBoxRow();
@@ -357,6 +359,17 @@ const Settings = new Lang.Class({
                 grid.add(optionsBtn);
 
                 optionsBtn.connect('clicked', () => this[Pos.optionDialogFunctions[el.element]]());
+            }
+
+            if (Pos.infoDialog[el.element]) {
+                let cogImg = new Gtk.Image({ gicon: Gio.icon_new_for_string(Me.path + '/img/info.svg') });
+                let optionsBtn = new Gtk.Button({ tooltip_text: _('More info') });
+
+                optionsBtn.add(cogImg);
+                grid.add(optionsBtn);
+
+                optionsBtn.connect('clicked', () => this._info(Pos.infoDialog[el.element]['name'],
+                                                               Pos.infoDialog[el.element]['link']));
             }
 
             grid.add(visibleToggleBtn);
@@ -505,6 +518,39 @@ const Settings = new Lang.Class({
                 this._settings.set_value('clock-format', this._settings.get_default_value('clock-format'));
                 this._builder.get_object('clock_format_entry').set_value(this._settings.get_string('clock-format'));
             } else {
+                // remove the settings box so it doesn't get destroyed;
+                dialog.get_content_area().remove(box);
+                dialog.destroy();
+            }
+            return;
+        }));
+
+        dialog.show_all();
+    },
+
+    _info: function(name, link) {
+        let dialog = new Gtk.Dialog({ title: _('Extension: ' + name),
+                                        transient_for: this.widget.get_toplevel(),
+                                        use_header_bar: true,
+                                        modal: true });
+
+        let box = new Gtk.Box({
+                orientation: Gtk.Orientation.VERTICAL,
+                valign: Gtk.Align.END,
+                vexpand: true,
+                margin_start: 12,
+                margin_end: 12,
+                margin_top: 12,
+                margin_bottom: 12});
+        let boxLabel = new Gtk.Label({label: "This functionality is provided by:"});
+        let boxLink = new Gtk.LinkButton({uri: link, label: name})
+
+        dialog.get_content_area().add(box);
+        box.add(boxLabel);
+        box.add(boxLink);
+
+        dialog.connect('response', Lang.bind(this, function(dialog, id) {
+            if (id != 1) {
                 // remove the settings box so it doesn't get destroyed;
                 dialog.get_content_area().remove(box);
                 dialog.destroy();

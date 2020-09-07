@@ -143,6 +143,8 @@ var dtpPanel = Utils.defineClass({
             this._setPanelMenu('dateMenu', DateMenu.DateMenuButton, this.panel.actor);
             this._setPanelMenu('activities', Panel.ActivitiesButton, this.panel.actor);
             this._setPanelMenu('NotificationCenter', PanelMenu.Button, this.panel.actor);
+            this._setPanelMenu('NetworkIndicator', PanelMenu.Button, this.panel.actor);
+            this._setPanelMenu('VolumeIndicator', PanelMenu.Button, this.panel.actor);
 
             if (this.statusArea.aggregateMenu) {
                 setMenuArrow(this.statusArea.aggregateMenu._indicators.get_last_child(), position);
@@ -160,7 +162,8 @@ var dtpPanel = Utils.defineClass({
 
             panelBoxes.forEach(p => this[p] = Main.panel[p]);
 
-            ['arc-menu', 'activities', 'aggregateMenu', 'dateMenu', 'NotificationCenter'].forEach(b => {
+            ['arc-menu', 'activities', 'aggregateMenu', 'dateMenu',
+             'NotificationCenter', 'NetworkIndicator', 'VolumeIndicator'].forEach(b => {
                 if (this.statusArea[b]) {
                     let container = this.statusArea[b].container;
                     let parent = container.get_parent();
@@ -465,7 +468,8 @@ var dtpPanel = Utils.defineClass({
             ['vertical', 'horizontal', 'metropanelMainPanel', 'dark', 'light'].forEach(c => this.panel.actor.remove_style_class_name(c));
 
             if (!Main.sessionMode.isLocked) {
-                [['arc-menu', 0], ['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0], ['NotificationCenter', 0]].forEach(b => {
+                [['arc-menu', 0], ['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0],
+                 ['NotificationCenter', 0], ['NetworkIndicator', 0], ['VolumeIndicator', 0]].forEach(b => {
                     let container = this.statusArea[b[0]].container;
                     let originalParent = container._dtpOriginalParent;
 
@@ -510,6 +514,8 @@ var dtpPanel = Utils.defineClass({
             this._removePanelMenu('aggregateMenu');
             this._removePanelMenu('activities');
             this._removePanelMenu('NotificationCenter');
+            this._removePanelMenu('NetworkIndicator');
+            this._removePanelMenu('VolumeIndicator');
         }
 
         Main.ctrlAltTabManager.removeGroup(this);
@@ -901,6 +907,10 @@ var dtpPanel = Utils.defineClass({
         if (this.statusArea["NotificationCenter"])
             setMap(Pos.NOTIFICATION, this.statusArea["NotificationCenter"].container);
         setMap(Pos.DESKTOP_BTN, this._showDesktopButton);
+        if (this.statusArea["NetworkIndicator"])
+            setMap(Pos.NETWORK_IND, this.statusArea["NetworkIndicator"].container);
+        if (this.statusArea["VolumeIndicator"])
+            setMap(Pos.VOLUME_IND, this.statusArea["VolumeIndicator"].container);
     },
 
     _mainPanelAllocate: function(actor, box, flags) {

@@ -31,6 +31,8 @@ var RIGHT_BOX = 'rightBox';
 var DESKTOP_BTN = 'desktopButton';
 var NOTIFICATION = 'notificationCenter';
 var ARC_MENU = 'arc-menu';
+var NETWORK_IND = 'NetworkIndicator';
+var VOLUME_IND = 'VolumeIndicator';
 
 var STACKED_TL = 'stackedTL';
 var STACKED_BR = 'stackedBR';
@@ -50,6 +52,8 @@ var defaults = [
     { element: TASKBAR,         visible: true,     position: STACKED_TL },
     { element: CENTER_BOX,      visible: true,     position: STACKED_BR },
     { element: RIGHT_BOX,       visible: true,     position: STACKED_BR },
+    { element: NETWORK_IND,     visible: true,     position: STACKED_BR },
+    { element: VOLUME_IND,      visible: true,     position: STACKED_BR },
     { element: SYSTEM_MENU,     visible: false,    position: STACKED_BR },
     { element: DATE_MENU,       visible: true,     position: STACKED_BR },
     { element: NOTIFICATION,    visible: true,     position: STACKED_BR },
@@ -61,6 +65,22 @@ var optionDialogFunctions = {};
 optionDialogFunctions[SHOW_APPS_BTN] = '_showShowAppsButtonOptions';
 optionDialogFunctions[DESKTOP_BTN] = '_showDesktopButtonOptions';
 optionDialogFunctions[DATE_MENU] = '_clockOptions';
+
+var infoDialog = {};
+
+let baseLink = "https://extensions.gnome.org/extension/"
+
+infoDialog[ARC_MENU] = {name: 'Arc Menu',
+                        link: baseLink + '1228/arc-menu/'};
+
+infoDialog[NETWORK_IND] = {name: 'Panel Indicators',
+                           link: baseLink + '3022/panel-indicators/'};
+
+infoDialog[VOLUME_IND] = {name: 'Panel Indicators',
+                          link: baseLink + '3022/panel-indicators/'};
+
+infoDialog[NOTIFICATION] = {name: 'Notification Center',
+                            link: baseLink + '1526/notification-centerselenium-h/'};
 
 function getSettingsPositions(settings, setting) {
     var positions = null;
