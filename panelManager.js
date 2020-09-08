@@ -259,8 +259,23 @@ var dtpPanelManager = Utils.defineClass({
             ]
         );
 
+        [
+            'arc-menu@linxgem33.com',
+            'notification-center@Selenium-H',
+            'panel-indicators@pemmoura'
+        ].forEach(c =>
+            Main.extensionManager.connect('extension-state-changed', (data, extension) => {
+                if (extension.uuid === c) {
+                    this._reset();
+                }
+        }));
+
         Panel.panelBoxes.forEach(c => this._signalsHandler.add(
-            [Main.panel[c], 'actor-added', (parent, child) => this._adjustPanelMenuButton(this._getPanelMenuButton(child), this.primaryPanel.monitor, this.primaryPanel.getPosition())]
+            [
+                Main.panel[c],
+                'actor-added',
+                (parent, child) => this._adjustPanelMenuButton(this._getPanelMenuButton(child), this.primaryPanel.monitor, this.primaryPanel.getPosition())
+            ]
         ));
 
         this._setKeyBindings(true);
