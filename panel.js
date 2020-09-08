@@ -470,12 +470,14 @@ var dtpPanel = Utils.defineClass({
             if (!Main.sessionMode.isLocked) {
                 [['arc-menu', 0], ['activities', 0], ['aggregateMenu', -1], ['dateMenu', 0],
                  ['NotificationCenter', 0], ['NetworkIndicator', 0], ['VolumeIndicator', 0]].forEach(b => {
-                    let container = this.statusArea[b[0]].container;
-                    let originalParent = container._dtpOriginalParent;
+                    if (this.statusArea[b[0]]) {
+                        let container = this.statusArea[b[0]].container;
+                        let originalParent = container._dtpOriginalParent;
 
-                    this.panel.actor.remove_child(container);
-                    originalParent ? originalParent.insert_child_at_index(container, b[1]) : null;
-                    delete container._dtpOriginalParent;
+                        this.panel.actor.remove_child(container);
+                        originalParent ? originalParent.insert_child_at_index(container, b[1]) : null;
+                        delete container._dtpOriginalParent;
+                    }
                 });
 
                 if (this.statusArea.appMenu) {
