@@ -246,7 +246,7 @@ var dtpPanelStyle = Utils.defineClass({
 
         if(this._centerBoxOperations.length) {
             // add the date menu as we move it from the centerbox to the panel to position it independently
-            let children = this.panel._centerBox.get_children().concat([this.panel.statusArea.dateMenu.container]);
+            let children = this.panel._centerBox.get_children();
             for(let i in children)
                 this._recursiveApply(children[i], this._centerBoxOperations, restore);
         }
@@ -256,6 +256,17 @@ var dtpPanelStyle = Utils.defineClass({
             for(let i in children)
                 this._recursiveApply(children[i], this._leftBoxOperations, restore);
         }
+
+        let extensionNames = ['NetworkIndicator',
+                              'VolumeIndicator'];
+
+        extensionNames.forEach(extension => {
+            if(this.panel.statusArea[extension].container) {
+                let children = [this.panel.statusArea[extension].container];
+                for(let i in children)
+                    this._recursiveApply(children[i], this._rightBoxOperations, restore);
+            }
+        })
     },
 
     _recursiveApply: function(actor, operations, restore) {

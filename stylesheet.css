@@ -139,10 +139,6 @@
 	padding: 8px 0; 
 }
 
-.metropanelMainPanel.vertical .panel-button.clock-display {
-	margin: 0 0 11px 0;
-}
-
 #metropanelThumbnailList {
 	spacing: 0em;
 	padding: 0 1em;
@@ -169,24 +165,6 @@
 
 #panel #panelLeft, #panel #panelCenter {
 	spacing: 0px; 
-}
-
-.showdesktop-button {
-    margin-left: 8px;
-}
-
-.showdesktop-button-vertical {
-    margin-top: 8px;
-}
-
-.metropanelMainPanel.dark .showdesktop-button:hover,
-.metropanelMainPanel.dark .showdesktop-button-vertical:hover {
-    background-color: rgba(255, 255, 255, .1);
-}
-
-.metropanelMainPanel.light .showdesktop-button:hover,
-.metropanelMainPanel.light .showdesktop-button-vertical:hover {
-	background-color: rgba(255, 255, 255, .4);
 }
 
 .panel-corner.hidden:active, .panel-corner.hidden:overview, .panel-corner.hidden:focus {
@@ -217,15 +195,69 @@
     box-shadow: none;
 }
 
+/*Clock*/
+.metropanelMainPanel.vertical .panel-button.clock-display {
+	margin: 13px 0 11px 0;
+}
+
 #panel .panel-button.clock-display:active .clock, #panel .panel-button.clock-display:overview .clock, #panel .panel-button.clock-display:focus .clock, #panel .panel-button.clock-display:checked .clock {
     box-shadow: none;
 }
 
+#panel .clock-display {
+    -natural-hpadding: 2px;
+    -minimum-hpadding: 2px;
+}
+
+.metropanelMainPanel.vertical .clock-display {
+    -natural-hpadding: 0;
+    -minimum-hpadding: 0;
+}
+
+#panel .clock-display-box {
+    margin: 0;
+    padding: 0;
+}
+
+/*Show Desktop button*/
+.showdesktop-button {
+    margin-left: 8px;
+}
+
+.showdesktop-button-vertical {
+    margin-top: 8px;
+}
+
+.metropanelMainPanel.dark .showdesktop-button:hover,
+.metropanelMainPanel.dark .showdesktop-button-vertical:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+.metropanelMainPanel.light .showdesktop-button:hover,
+.metropanelMainPanel.light .showdesktop-button-vertical:hover {
+	background-color: rgba(255, 255, 255, .4);
+}
+
 /*Extension: Notification Center*/
-.notification-center-panel-button:active {
+#panel .notification-center-panel-button:active {
     background-color: rgba(255, 255, 255, 0.053);
 }
 
-/*.notification-center-panel-button .panel-status-menu-box {
+#panel .notification-center-panel-button .panel-status-menu-box {
     margin: 4px 8px;
-}*/
+}
+
+.metropanelMainPanel.vertical .notification-center-panel-button .panel-status-menu-box {
+    margin: 0;
+    padding: 0;
+}
+
+#panel .notification-center-panel-button {
+    -natural-hpadding: 0;
+    -minimum-hpadding: 0;
+}
+
+/*Extension: Arc Menu*/
+.arc-menu-panel-menu .panel-status-menu-box {
+    margin: 1px 0 1px 0;
+}
