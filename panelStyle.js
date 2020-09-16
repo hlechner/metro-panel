@@ -261,7 +261,7 @@ var dtpPanelStyle = Utils.defineClass({
                               'VolumeIndicator'];
 
         extensionNames.forEach(extension => {
-            if(this.panel.statusArea[extension].container) {
+            if(this.panel.statusArea[extension]) {
                 let children = [this.panel.statusArea[extension].container];
                 for(let i in children)
                     this._recursiveApply(children[i], this._rightBoxOperations, restore);
